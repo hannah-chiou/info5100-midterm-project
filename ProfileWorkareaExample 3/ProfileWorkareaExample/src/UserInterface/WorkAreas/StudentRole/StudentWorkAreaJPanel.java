@@ -171,23 +171,23 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCourseWorkIdentifyResourceAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCourseWorkIdentifyResourceAssetsActionPerformed
-        StudentCourseWorkJPanel scw = new StudentCourseWorkJPanel(business, CardSequencePanel);
-        CardSequencePanel.add("ManageCourses", scw);
+        StudentCourseWorkJPanel aos = new StudentCourseWorkJPanel(business, CardSequencePanel);
+        CardSequencePanel.add("ManageVulns", aos);
         ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+
     }//GEN-LAST:event_btnCourseWorkIdentifyResourceAssetsActionPerformed
 
     private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
         // TODO add your handling code here:
-        StudentProfileJPanel sp = new StudentProfileJPanel(business, CardSequencePanel);
-        CardSequencePanel.add("ViewProfile", sp);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+
+
+
 }//GEN-LAST:event_btnProfileActionPerformed
 
     private void btnGraduationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraduationActionPerformed
         // TODO add your handling code here:
-        StudentGraduationJPanel sg = new StudentGraduationJPanel(business, CardSequencePanel);
-        CardSequencePanel.add("ViewProfile", sg);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+
+
     }//GEN-LAST:event_btnGraduationActionPerformed
 
     private void btnRegistrationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrationActionPerformed
@@ -198,9 +198,6 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnTranscriptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTranscriptActionPerformed
         // TODO add your handling code here:
-        StudentTranscriptJPanel st = new StudentTranscriptJPanel(business, CardSequencePanel);
-        CardSequencePanel.add("ViewTranscript", st);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
     }//GEN-LAST:event_btnTranscriptActionPerformed
 
 
