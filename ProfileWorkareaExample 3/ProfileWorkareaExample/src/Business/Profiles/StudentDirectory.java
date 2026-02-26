@@ -5,6 +5,7 @@
  */
 package Business.Profiles;
 
+import Business.Department.Department;
 import Business.Person.Person;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class StudentDirectory {
 
     ArrayList<StudentProfile> studentlist;
 
-    public StudentDirectory() {
+    public StudentDirectory(Department department) {
 
      studentlist = new ArrayList();
 

@@ -5,7 +5,10 @@
  */
 package Business.Profiles;
 
+import Business.CourseSchedule.CourseLoad;
+import Business.CourseSchedule.SeatAssignment;
 import Business.Person.Person;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,8 +17,7 @@ import Business.Person.Person;
 public class StudentProfile extends Profile {
 
     Person person;
-//    Transcript transcript;
-    //   EmploymentHistroy employmenthistory;
+    Transcript transcript;
 
     public StudentProfile(Person p) {
         super(p);
@@ -25,12 +27,38 @@ public class StudentProfile extends Profile {
     }
 
     @Override
-    public String getRole() {
-        return "Student";
-    }
-
     public boolean isMatch(String id) {
         return person.getPersonId().equals(id);
+    }
+
+    public Transcript getTranscript() {
+        return transcript;
+    }
+
+    public CourseLoad getCourseLoadBySemester(String semester) {
+
+        return transcript.getCourseLoadBySemester(semester);
+    }
+
+    public CourseLoad getCurrentCourseLoad() {
+
+        return transcript.getCurrentCourseLoad();
+    }
+
+    public CourseLoad newCourseLoad(String s) {
+
+        return transcript.newCourseLoad(s);
+    }
+
+    public ArrayList<SeatAssignment> getCourseList() {
+
+        return transcript.getCourseList();
+
+    }
+
+    @Override
+    public String getRole() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
