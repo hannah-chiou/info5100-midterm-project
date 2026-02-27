@@ -22,7 +22,7 @@ public class StudentProfile extends Profile {
     public StudentProfile(Person p) {
         super(p);
 
-//        transcript = new Transcript(this);
+        transcript = new Transcript(this);
 //        employmenthistory = new EmploymentHistroy();
     }
 
@@ -58,7 +58,7 @@ public class StudentProfile extends Profile {
 
     @Override
     public String getRole() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "Student"; 
     }
 
 }
