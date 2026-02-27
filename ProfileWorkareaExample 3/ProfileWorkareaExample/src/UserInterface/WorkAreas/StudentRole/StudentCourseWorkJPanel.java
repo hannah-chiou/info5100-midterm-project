@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 import Business.Business;
+import Business.CourseSchedule.CourseLoad;
+import Business.CourseSchedule.SeatAssignment;
 import Business.UserAccounts.UserAccount;
 import javax.swing.JPanel;
 
@@ -23,14 +25,14 @@ import javax.swing.JPanel;
  */
 public class StudentCourseWorkJPanel extends javax.swing.JPanel {
     JPanel CardSequencePanel;
-    Business business;
-    UserAccount selecteduseraccount;
+    CourseLoad courseLoad;
+    SeatAssignment selectedSeatAssignment;
     /**
      * Creates new form StudentCourseWorkJPanel
      */
-    public StudentCourseWorkJPanel(Business bz, JPanel jp) {
+    public StudentCourseWorkJPanel(CourseLoad cl, JPanel jp) {
         CardSequencePanel = jp;
-        this.business = bz;
+        this.courseLoad = cl;
         initComponents();
     }
 
@@ -49,6 +51,7 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
         lblTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCourseWork = new javax.swing.JTable();
+        txtSemester = new javax.swing.JTextField();
 
         btnBack.setText("<< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -65,7 +68,6 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
         });
 
         lblTblTitle.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblTblTitle.setText("Courses");
 
         lblTitle.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         lblTitle.setText("Course Work");
@@ -78,7 +80,7 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "User Name", "Status", "Last Activity", "Last Updated"
+                "Course Number", "Course Name", "Credits", "Price"
             }
         ));
         tblCourseWork.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -88,11 +90,16 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblCourseWork);
 
+        txtSemester.setText("Semester");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 559, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(489, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -111,7 +118,10 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 303, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(txtSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(232, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -148,8 +158,8 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
         if (selectedrow < 0 || selectedrow > size - 1) {
             return;
         }
-        selecteduseraccount = (UserAccount) tblCourseWork.getValueAt(selectedrow, 0);
-        if (selecteduseraccount == null) {
+        selectedSeatAssignment = (SeatAssignment) tblCourseWork.getValueAt(selectedrow, 0);
+        if (selectedSeatAssignment == null) {
             return;
         }
 
@@ -163,5 +173,6 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblTblTitle;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTable tblCourseWork;
+    private javax.swing.JTextField txtSemester;
     // End of variables declaration//GEN-END:variables
 }

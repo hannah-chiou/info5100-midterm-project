@@ -22,7 +22,7 @@ public class StudentProfile extends Profile {
     public StudentProfile(Person p) {
         super(p);
 
-//        transcript = new Transcript(this);
+        transcript = new Transcript(this);
 //        employmenthistory = new EmploymentHistroy();
     }
 

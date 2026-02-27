@@ -11,6 +11,7 @@
 package UserInterface.WorkAreas.StudentRole;
 
 import Business.Business;
+import Business.CourseSchedule.CourseLoad;
 import Business.Profiles.StudentProfile;
 import UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp.ManageUserAccountsJPanel;
 import javax.swing.JPanel;
@@ -24,6 +25,7 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
     javax.swing.JPanel CardSequencePanel;
     Business business;
     StudentProfile student;
+    CourseLoad courseLoad;
 
     /**
      * Creates new form UnitRiskWorkArea
@@ -171,8 +173,8 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCourseWorkIdentifyResourceAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCourseWorkIdentifyResourceAssetsActionPerformed
-        StudentCourseWorkJPanel aos = new StudentCourseWorkJPanel(business, CardSequencePanel);
-        CardSequencePanel.add("ManageVulns", aos);
+        StudentCourseWorkJPanel aos = new StudentCourseWorkJPanel(courseLoad, CardSequencePanel);
+        CardSequencePanel.add("ManageCourses", aos);
         ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
     }//GEN-LAST:event_btnCourseWorkIdentifyResourceAssetsActionPerformed
