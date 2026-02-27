@@ -3,6 +3,7 @@
 ### Team Information
 List all team members along with their assigned roles and responsibilities
 Include NUIDs for identification
+Kenneth Garcia 003166112 - Student Use Case
 
 ### Project Overview
 Briefly describe the purpose and objectives of this project
