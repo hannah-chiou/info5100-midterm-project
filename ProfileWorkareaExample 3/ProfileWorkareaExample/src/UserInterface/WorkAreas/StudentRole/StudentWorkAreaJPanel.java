@@ -39,6 +39,7 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         business = b;
         this.CardSequencePanel = clp;
         student = spp;
+        courseLoad = spp.getCurrentCourseLoad();
         initComponents();
 
     }
