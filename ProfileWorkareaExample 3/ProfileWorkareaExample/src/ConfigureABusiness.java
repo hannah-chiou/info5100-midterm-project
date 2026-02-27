@@ -10,6 +10,8 @@ import Business.Person.Person;
 import Business.Person.PersonDirectory;
 import Business.Profiles.EmployeeDirectory;
 import Business.Profiles.EmployeeProfile;
+import Business.Profiles.Faculty.FacultyDirectory;
+import Business.Profiles.Faculty.FacultyProfile;
 import Business.Profiles.StudentDirectory;
 import Business.Profiles.StudentProfile;
 
@@ -46,14 +48,16 @@ class ConfigureABusiness {
         StudentDirectory studentdirectory = business.getStudentDirectory();
         StudentProfile studentprofile0 = studentdirectory.newStudentProfile(person003);
         
-        // FacultyDirectory facultydirecotry = business.get
+        FacultyDirectory facultydirectory = business.getFacultydirectory();
+        FacultyProfile facultyprofile0 = facultydirectory.newFacultyProfile(person008);
 
    
 // Create User accounts that link to specific profiles
         UserAccountDirectory uadirectory = business.getUserAccountDirectory();
         UserAccount ua3 = uadirectory.newUserAccount(employeeprofile0, "admin", "****"); /// order products for one of the customers and performed by a sales person
         UserAccount ua4 = uadirectory.newUserAccount(studentprofile0, "adam", "****"); 
-
+        
+        UserAccount ua5 = uadirectory.newUserAccount(facultyprofile0, "faculty", "****10");
         
         return business;
 

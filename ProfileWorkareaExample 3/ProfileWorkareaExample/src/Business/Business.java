@@ -10,6 +10,7 @@ import Business.Person.PersonDirectory;
 import Business.Profiles.EmployeeDirectory;
 import Business.Profiles.StudentDirectory;
 import Business.Profiles.EmployeeDirectory;
+import Business.Profiles.Faculty.FacultyDirectory;
 
 import Business.UserAccounts.UserAccountDirectory;
 
@@ -24,6 +25,7 @@ public class Business {
     EmployeeDirectory employeedirectory;
     UserAccountDirectory useraccountdirectory;
     StudentDirectory studentdirectory;
+    FacultyDirectory facultydirectory; 
     Department thisDepartment;
     
 
@@ -35,7 +37,7 @@ public class Business {
         employeedirectory = new EmployeeDirectory(this);
         useraccountdirectory = new UserAccountDirectory();   
         studentdirectory = new StudentDirectory(thisDepartment);
-
+        facultydirectory = new FacultyDirectory(thisDepartment);
 
     }
 
@@ -55,6 +57,14 @@ public class Business {
     public StudentDirectory getStudentDirectory(){
         return studentdirectory;
     }
-    
 
+    public FacultyDirectory getFacultydirectory() {
+        return facultydirectory;
+    }
+
+    public void setFacultydirectory(FacultyDirectory facultydirectory) {
+        this.facultydirectory = facultydirectory;
+    }
+    
+    
 }

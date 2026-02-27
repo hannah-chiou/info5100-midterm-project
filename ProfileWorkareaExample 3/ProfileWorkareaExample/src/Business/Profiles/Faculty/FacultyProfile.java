@@ -14,41 +14,42 @@ import java.util.ArrayList;
  *
  * @author kal bugrara
  */
-public class FacultyProfile {
+public class FacultyProfile extends Profile {
 
     Person person;
-    ArrayList <FacultyAssignment> facultyassignments; 
-    
-    public FacultyProfile(Person p) {
+    ArrayList<FacultyAssignment> facultyassignments;
 
-        person = p;
-        facultyassignments = new ArrayList();
+    public FacultyProfile(Person p) {
+        super(p);
+        this.person = p;
+        this.facultyassignments = new ArrayList();
     }
-    public  double getProfAverageOverallRating(){
-        
+
+    public double getProfAverageOverallRating() {
+
         double sum = 0.0;
         //for each facultyassignment extract class rating
         //add them up and divide by the number of teaching assignmnet;
-        for(FacultyAssignment fa: facultyassignments){
-            
+        for (FacultyAssignment fa : facultyassignments) {
+
             sum = sum + fa.getRating();
-            
+
         }
         //divide by the total number of faculty assignments
-        
-        return sum/(facultyassignments.size()*1.0); //this ensure we have double/double
-        
+
+        return sum / (facultyassignments.size() * 1.0); //this ensure we have double/double
+
     }
 
-    public FacultyAssignment AssignAsTeacher(CourseOffer co){
-        
+    public FacultyAssignment AssignAsTeacher(CourseOffer co) {
+
         FacultyAssignment fa = new FacultyAssignment(this, co);
         facultyassignments.add(fa);
-        
+
         return fa;
     }
-    
-    public FacultyProfile getCourseOffer(String courseid){
+
+    public FacultyProfile getCourseOffer(String courseid) {
         return null; //complete it later
     }
 
@@ -59,4 +60,8 @@ public class FacultyProfile {
         return false;
     }
 
+    @Override
+    public String getRole() {
+        return "Faculty";
+    }
 }
