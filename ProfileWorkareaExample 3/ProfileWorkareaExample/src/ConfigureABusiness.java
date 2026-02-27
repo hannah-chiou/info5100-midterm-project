@@ -46,7 +46,7 @@ class ConfigureABusiness {
         StudentDirectory studentdirectory = business.getStudentDirectory();
         StudentProfile studentprofile0 = studentdirectory.newStudentProfile(person003);
         
-
+        // FacultyDirectory facultydirecotry = business.get
 
    
 // Create User accounts that link to specific profiles
@@ -54,6 +54,7 @@ class ConfigureABusiness {
         UserAccount ua3 = uadirectory.newUserAccount(employeeprofile0, "admin", "****"); /// order products for one of the customers and performed by a sales person
         UserAccount ua4 = uadirectory.newUserAccount(studentprofile0, "adam", "****"); 
 
+        
         return business;
 
     }
