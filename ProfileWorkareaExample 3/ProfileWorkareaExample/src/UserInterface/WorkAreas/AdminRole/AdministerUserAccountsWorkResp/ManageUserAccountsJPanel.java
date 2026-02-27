@@ -8,6 +8,8 @@ package UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp;
 import Business.Business;
 import Business.UserAccounts.UserAccount;
 import Business.UserAccounts.UserAccountDirectory;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 import javax.swing.JPanel;
@@ -25,6 +27,8 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
     JPanel CardSequencePanel;
     Business business;
     UserAccount selecteduseraccount;
+    private LocalDateTime lastAccess;
+    private LocalDateTime lastUpdated;
 
 
     public ManageUserAccountsJPanel(Business bz, JPanel jp) {
@@ -35,7 +39,7 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
 
     }
 
-    public void refreshTable() {
+     public void refreshTable() {
 
 //clear supplier table
         int rc = UserAccountTable.getRowCount();
@@ -52,13 +56,14 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
 
         for (UserAccount ua : uad.getUserAccountList()) {
 
-            Object[] row = new Object[5];
-            row[0] = ua;
- //           row[1] = ua.getStatus(); //complete this..
- //           row[2] = ua.getLastUpdated()
- //           row[3] = 
+        Object[] row = new Object[5];
+        row[0] = ua;
+        row[1] = ua.getRole();           // role instead of getStatus()
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        row[2] = ua.getLastAccess() == null ? "Never" : ua.getLastAccess().format(formatter);
+        row[3] = ua.getLastUpdated() == null ? "Never" : ua.getLastUpdated().format(formatter);
 
-            ((DefaultTableModel) UserAccountTable.getModel()).addRow(row);
+        ((DefaultTableModel) UserAccountTable.getModel()).addRow(row);
         }
 
     }
