@@ -11,6 +11,7 @@ import Business.Profiles.StudentProfile;
 
 import Business.UserAccounts.UserAccount;
 import Business.UserAccounts.UserAccountDirectory;
+import java.time.LocalDateTime;
 
 import UserInterface.WorkAreas.AdminRole.AdminRoleWorkAreaJPanel;
 import UserInterface.WorkAreas.FacultyRole.FacultyWorkAreaJPanel;
@@ -145,6 +146,7 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
         AdminRoleWorkAreaJPanel adminworkarea;
         String r = useraccount.getRole();
         Profile profile = useraccount.getAssociatedPersonProfile();
+        useraccount.setLastAccess(java.time.LocalDateTime.now());
 
 
         if (profile instanceof EmployeeProfile) {
