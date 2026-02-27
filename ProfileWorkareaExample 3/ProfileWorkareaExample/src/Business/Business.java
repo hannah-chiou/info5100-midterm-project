@@ -9,6 +9,7 @@ import Business.Department.Department;
 import Business.Person.PersonDirectory;
 import Business.Profiles.EmployeeDirectory;
 import Business.Profiles.StudentDirectory;
+import Business.Profiles.EmployeeDirectory;
 
 import Business.UserAccounts.UserAccountDirectory;
 
@@ -54,5 +55,6 @@ public class Business {
     public StudentDirectory getStudentDirectory(){
         return studentdirectory;
     }
+    
 
 }
