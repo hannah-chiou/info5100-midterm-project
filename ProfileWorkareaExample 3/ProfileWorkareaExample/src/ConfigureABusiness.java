@@ -4,8 +4,13 @@
  * and open the template in the editor.
 
 */
-package Business;
 
+
+import Business.Business;
+import Business.Course.Course;
+import Business.Course.CourseCatalog;
+import Business.CourseSchedule.CourseSchedule;
+import Business.Department.Department;
 import Business.Person.Person;
 import Business.Person.PersonDirectory;
 import Business.Profiles.EmployeeDirectory;
@@ -15,6 +20,7 @@ import Business.Profiles.StudentProfile;
 
 import Business.UserAccounts.UserAccount;
 import Business.UserAccounts.UserAccountDirectory;
+import java.util.ArrayList;
 
 
 /**
@@ -45,15 +51,43 @@ class ConfigureABusiness {
         
         StudentDirectory studentdirectory = business.getStudentDirectory();
         StudentProfile studentprofile0 = studentdirectory.newStudentProfile(person003);
-        
-
-
    
 // Create User accounts that link to specific profiles
         UserAccountDirectory uadirectory = business.getUserAccountDirectory();
         UserAccount ua3 = uadirectory.newUserAccount(employeeprofile0, "admin", "****"); /// order products for one of the customers and performed by a sales person
         UserAccount ua4 = uadirectory.newUserAccount(studentprofile0, "adam", "****"); 
-
+        
+// Create department, course schedules, and courses
+        Department department = new Department("MSIS");
+        
+        CourseCatalog msisCatalog = new CourseCatalog(department);
+        
+        CourseSchedule cs001 = department.newCourseSchedule("Fall 2026");
+        CourseSchedule cs002 = department.newCourseSchedule("Spring 2027");
+        
+        Course c001 = department.newCourse("0001", "INFO5001", 3);
+        Course c002 = department.newCourse("0002", "INFO5002", 3);
+        Course c003 = department.newCourse("0003", "APPL5011", 3);
+        Course c004 = department.newCourse("0004", "APPL5012", 3);
+        Course c005 = department.newCourse("0005", "SYST5021", 3);
+        Course c006 = department.newCourse("0006", "SYST5022", 3);
+        Course c007 = department.newCourse("0007", "DAMG5031", 3); 
+        Course c008 = department.newCourse("0008", "DAMG5032", 3); 
+        
+        cs001.newCourseOffer("0001");
+        cs002.newCourseOffer("0002");
+        cs001.newCourseOffer("0003");
+        cs002.newCourseOffer("0004");
+        cs001.newCourseOffer("0005");
+        cs002.newCourseOffer("0006");
+        cs001.newCourseOffer("0007");
+        cs002.newCourseOffer("0008");
+        
+        ArrayList<Course> courseList = msisCatalog.getCourseList();
+        for(int i = 0; i < courseList.size(); i++){
+            
+        }
+    
         return business;
 
     }
