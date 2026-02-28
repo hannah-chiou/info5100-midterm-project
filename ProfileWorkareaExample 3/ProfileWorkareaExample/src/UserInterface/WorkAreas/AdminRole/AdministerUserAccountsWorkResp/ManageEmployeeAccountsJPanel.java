@@ -6,7 +6,7 @@
 package UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp;
 
 import Business.Business;
-import Business.Profiles.StudentProfile;
+import Business.Profiles.EmployeeProfile;
 import Business.UserAccounts.UserAccount;
 import Business.UserAccounts.UserAccountDirectory;
 import java.time.LocalDateTime;
@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author kal bugrara
  */
-public class ManageStudentAccountsJPanel extends javax.swing.JPanel {
+public class ManageEmployeeAccountsJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form ManageSuppliersJPanel
@@ -33,7 +33,7 @@ public class ManageStudentAccountsJPanel extends javax.swing.JPanel {
     private LocalDateTime lastUpdated;
 
 
-    public ManageStudentAccountsJPanel(Business bz, JPanel jp) {
+    public ManageEmployeeAccountsJPanel(Business bz, JPanel jp) {
         CardSequencePanel = jp;
         this.business = bz;
         initComponents();
@@ -49,8 +49,8 @@ public class ManageStudentAccountsJPanel extends javax.swing.JPanel {
     UserAccountDirectory uad = business.getUserAccountDirectory();
 
     for (UserAccount ua : uad.getUserAccountList()) {
-        if (ua.getAssociatedPersonProfile() instanceof StudentProfile) {
-            StudentProfile sp = (StudentProfile) ua.getAssociatedPersonProfile();
+        if (ua.getAssociatedPersonProfile() instanceof EmployeeProfile) {
+            EmployeeProfile sp = (EmployeeProfile) ua.getAssociatedPersonProfile();
 
             Object[] row = new Object[3];
             row[0] = ua;                    // store the UserAccount, not StudentProfile
@@ -94,12 +94,12 @@ public class ManageStudentAccountsJPanel extends javax.swing.JPanel {
         Back.setBounds(30, 300, 90, 23);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel1.setText("Student Accounts");
+        jLabel1.setText("Employee Accounts");
         add(jLabel1);
         jLabel1.setBounds(30, 90, 190, 17);
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel2.setText("Manage Student Accounts");
+        jLabel2.setText("Manage Employee Accounts");
         add(jLabel2);
         jLabel2.setBounds(21, 20, 550, 28);
 
@@ -124,32 +124,32 @@ public class ManageStudentAccountsJPanel extends javax.swing.JPanel {
         add(jScrollPane1);
         jScrollPane1.setBounds(30, 110, 510, 130);
 
-        btnDeleteStudent.setText("Delete Student");
+        btnDeleteStudent.setText("Delete Employee");
         btnDeleteStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteStudentActionPerformed(evt);
             }
         });
         add(btnDeleteStudent);
-        btnDeleteStudent.setBounds(420, 290, 120, 20);
+        btnDeleteStudent.setBounds(400, 290, 140, 20);
 
-        btnCreateStudent.setText("Create Student");
+        btnCreateStudent.setText("Create Employee");
         btnCreateStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateStudentActionPerformed(evt);
             }
         });
         add(btnCreateStudent);
-        btnCreateStudent.setBounds(420, 260, 120, 20);
+        btnCreateStudent.setBounds(400, 260, 140, 20);
 
-        btnModifyStudent.setText("View Student");
+        btnModifyStudent.setText("View Employee");
         btnModifyStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModifyStudentActionPerformed(evt);
             }
         });
         add(btnModifyStudent);
-        btnModifyStudent.setBounds(420, 320, 120, 20);
+        btnModifyStudent.setBounds(400, 320, 140, 20);
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
@@ -179,8 +179,7 @@ public class ManageStudentAccountsJPanel extends javax.swing.JPanel {
 
     private void btnDeleteStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteStudentActionPerformed
         // TODO add your handling code here:
-        
-        int row = UserAccountTable.getSelectedRow();
+         int row = UserAccountTable.getSelectedRow();
         if(row < 0) {
         JOptionPane.showMessageDialog(null, "Please select a row from the table first", "Warning", JOptionPane.WARNING_MESSAGE);
         return;
@@ -188,22 +187,21 @@ public class ManageStudentAccountsJPanel extends javax.swing.JPanel {
 
     UserAccount ua = (UserAccount) UserAccountTable.getValueAt(row, 0);
 
-    if (ua.getAssociatedPersonProfile() instanceof StudentProfile) {
-        StudentProfile sp = (StudentProfile) ua.getAssociatedPersonProfile();
-        business.getStudentDirectory().removeStudent(sp);
+    if (ua.getAssociatedPersonProfile() instanceof EmployeeProfile) {
+        EmployeeProfile ep = (EmployeeProfile) ua.getAssociatedPersonProfile();
+        business.getEmployeeDirectory().removeEmployee(ep);
         business.getUserAccountDirectory().getUserAccountList().remove(ua);
 
         refreshTable();
         
-         JOptionPane.showMessageDialog(null, "This Student Account has been deleted", "Warning", JOptionPane.INFORMATION_MESSAGE);
+         JOptionPane.showMessageDialog(null, "This Employee Account has been deleted", "Warning", JOptionPane.INFORMATION_MESSAGE);
     }
     }//GEN-LAST:event_btnDeleteStudentActionPerformed
 
     private void btnCreateStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateStudentActionPerformed
-        // TODO add your handling code here:
-        CreateStudentAccountJPanel csa = new CreateStudentAccountJPanel(business, CardSequencePanel,this);
-        CardSequencePanel.add("Create Student", csa);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        CreateEmployeeAccountJPanel cea = new CreateEmployeeAccountJPanel(business, CardSequencePanel,this);
+        CardSequencePanel.add("Create Employee", cea);
+        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);      
     }//GEN-LAST:event_btnCreateStudentActionPerformed
 
     private void btnModifyStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyStudentActionPerformed
@@ -217,12 +215,13 @@ public class ManageStudentAccountsJPanel extends javax.swing.JPanel {
     UserAccount ua = (UserAccount) UserAccountTable.getValueAt(row, 0);
 
 
-    StudentProfile sp = (StudentProfile) ua.getAssociatedPersonProfile();
+    EmployeeProfile ep = (EmployeeProfile) ua.getAssociatedPersonProfile();
 
-    ModifyStudentAccountJPanel viewPanel = new ModifyStudentAccountJPanel(business, CardSequencePanel, this, ua);
+    ModifyEmployeeAccountJPanel viewEmployeePanel = new ModifyEmployeeAccountJPanel(business, CardSequencePanel, this, ua);
 
-    CardSequencePanel.add("Modify Student", viewPanel);
+    CardSequencePanel.add("Modify Employee", viewEmployeePanel);
     ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+         
     }//GEN-LAST:event_btnModifyStudentActionPerformed
     
     
