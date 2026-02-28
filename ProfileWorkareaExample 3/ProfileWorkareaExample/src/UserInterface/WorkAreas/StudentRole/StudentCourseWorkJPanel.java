@@ -41,17 +41,17 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
         System.out.println("CourseLoad is null - no coursework to display");
         return;
     }
-        int rc = tblCourseWork.getRowCount();
+        int rc = tblCourseLoad.getRowCount();
         int i;
         for (i = rc - 1; i >= 0; i--) {
-            ((DefaultTableModel) tblCourseWork.getModel()).removeRow(i);
+            ((DefaultTableModel) tblCourseLoad.getModel()).removeRow(i);
         }
         
         for (SeatAssignment sa : cl.getSeatAssignments()) {
             Object[] row = new Object[1];
             row[0] = cl;
 
-            ((DefaultTableModel) tblCourseWork.getModel()).addRow(row);
+            ((DefaultTableModel) tblCourseLoad.getModel()).addRow(row);
         }
     }
 
@@ -69,7 +69,7 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
         lblTblTitle = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCourseWork = new javax.swing.JTable();
+        tblCourseLoad = new javax.swing.JTable();
         txtSemester = new javax.swing.JTextField();
 
         btnBack.setText("<< Back");
@@ -91,23 +91,23 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
         lblTitle.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         lblTitle.setText("Course Work");
 
-        tblCourseWork.setModel(new javax.swing.table.DefaultTableModel(
+        tblCourseLoad.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Course Number", "Course Name", "Credits", "Price"
+                "Course Number", "Course Name"
             }
         ));
-        tblCourseWork.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblCourseLoad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tblCourseWorkMousePressed(evt);
+                tblCourseLoadMousePressed(evt);
             }
         });
-        jScrollPane1.setViewportView(tblCourseWork);
+        jScrollPane1.setViewportView(tblCourseLoad);
 
         txtSemester.setText("Semester");
 
@@ -117,18 +117,23 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(137, 137, 137))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(9, 11, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblTblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnBack)
                             .addGap(396, 396, 396)
@@ -141,14 +146,14 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
                 .addComponent(lblTitle)
                 .addGap(18, 18, 18)
                 .addComponent(txtSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(99, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 84, Short.MAX_VALUE)
                     .addComponent(lblTblTitle)
-                    .addGap(1, 1, 1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(60, 60, 60)
+                    .addGap(191, 191, 191)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(btnBack)
                         .addComponent(btnNext))
@@ -168,20 +173,20 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnNextActionPerformed
 
-    private void tblCourseWorkMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCourseWorkMousePressed
+    private void tblCourseLoadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCourseLoadMousePressed
         // Extracts the row (uaser account) in the table that is selected by the user
-        int size = tblCourseWork.getRowCount();
-        int selectedrow = tblCourseWork.getSelectionModel().getLeadSelectionIndex();
+        int size = tblCourseLoad.getRowCount();
+        int selectedrow = tblCourseLoad.getSelectionModel().getLeadSelectionIndex();
 
         if (selectedrow < 0 || selectedrow > size - 1) {
             return;
         }
-        selectedSeatAssignment = (SeatAssignment) tblCourseWork.getValueAt(selectedrow, 0);
+        selectedSeatAssignment = (SeatAssignment) tblCourseLoad.getValueAt(selectedrow, 0);
         if (selectedSeatAssignment == null) {
             return;
         }
 
-    }//GEN-LAST:event_tblCourseWorkMousePressed
+    }//GEN-LAST:event_tblCourseLoadMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -190,7 +195,7 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTblTitle;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JTable tblCourseWork;
+    private javax.swing.JTable tblCourseLoad;
     private javax.swing.JTextField txtSemester;
     // End of variables declaration//GEN-END:variables
 }
