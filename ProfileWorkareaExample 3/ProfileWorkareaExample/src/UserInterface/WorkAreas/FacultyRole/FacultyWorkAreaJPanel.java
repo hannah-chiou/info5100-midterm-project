@@ -13,6 +13,7 @@ package UserInterface.WorkAreas.FacultyRole;
 import Business.Business;
 import UserInterface.WorkAreas.AdminRole.ManagePersonnelWorkResp.ManagePersonsJPanel;
 import javax.swing.JPanel;
+import Business.Profiles.Faculty.FacultyProfile;
 
 /**
  *
@@ -23,14 +24,16 @@ public class FacultyWorkAreaJPanel extends javax.swing.JPanel {
     javax.swing.JPanel CardSequencePanel;
     Business business;
 
+    private FacultyProfile currentFaculty;
+
     /**
      * Creates new form UnitRiskWorkArea
      */
-
-    public FacultyWorkAreaJPanel(Business b, JPanel clp) {
+    public FacultyWorkAreaJPanel(Business b, JPanel clp, FacultyProfile faculty) {
 
         business = b;
         this.CardSequencePanel = clp;
+        this.currentFaculty = faculty;
         initComponents();
 
     }
@@ -151,17 +154,20 @@ public class FacultyWorkAreaJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         CardSequencePanel.removeAll();
 
-        ManagePersonsJPanel aos = new ManagePersonsJPanel(business, CardSequencePanel);
+        // pass the logged-in faculty profile
+        ManageCoursesJPanel manageCoursesPanel
+                = new ManageCoursesJPanel(currentFaculty);
 
-        CardSequencePanel.add("Manage Persons", aos);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        CardSequencePanel.add("Manage Courses", manageCoursesPanel);
+        ((java.awt.CardLayout) CardSequencePanel.getLayout())
+                .next(CardSequencePanel);
 
     }//GEN-LAST:event_btnManageCoursesIdentifyResourceAssetsActionPerformed
 
     private void btnManageStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageStudentsActionPerformed
         // TODO add your handling code here:
 
-  
+
     }//GEN-LAST:event_btnManageStudentsActionPerformed
 
     private void btnProfileIdentifyEventsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileIdentifyEventsActionPerformed

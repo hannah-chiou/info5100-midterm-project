@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import UserInterface.WorkAreas.AdminRole.AdminRoleWorkAreaJPanel;
 import UserInterface.WorkAreas.FacultyRole.FacultyWorkAreaJPanel;
 import UserInterface.WorkAreas.StudentRole.StudentWorkAreaJPanel;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -30,11 +31,9 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
     /**
      * Creates new form PricingMainFrame
      */
-
     public ProfileWorkAreaMainFrame() {
         initComponents();
         business = ConfigureABusiness.initialize();
-        
 
     }
 
@@ -156,7 +155,6 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
         Profile profile = useraccount.getAssociatedPersonProfile();
         useraccount.setLastAccess(java.time.LocalDateTime.now());
 
-
         if (profile instanceof EmployeeProfile) {
 
             adminworkarea = new AdminRoleWorkAreaJPanel(business, CardSequencePanel);
@@ -165,7 +163,7 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
             ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
         }
-        
+
         if (profile instanceof StudentProfile) {
 
             StudentProfile spp = (StudentProfile) profile;
@@ -176,11 +174,20 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
 
         }
 
-       if (profile instanceof FacultyProfile) {
-            facultyworkarea = new FacultyWorkAreaJPanel(business, CardSequencePanel);
+        if (profile instanceof FacultyProfile) {
+            FacultyProfile fp = (FacultyProfile) profile;
+
+            facultyworkarea = new FacultyWorkAreaJPanel(business, CardSequencePanel, fp);
+
             CardSequencePanel.removeAll();
             CardSequencePanel.add("faculty", facultyworkarea);
-            ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+
+            CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+            layout.next(CardSequencePanel);
+
+            // ✅ REQUIRED FOR UI TO UPDATE
+            CardSequencePanel.revalidate();
+            CardSequencePanel.repaint();
 
         }
 

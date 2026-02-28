@@ -31,5 +31,15 @@ public class FacultyAssignment {
     public FacultyProfile getFacultyProfile(){
         return facultyprofile;
     }
+
+    public CourseOffer getCourseoffer() {
+        return courseoffer;
+    }
+
+    public void setCourseoffer(CourseOffer courseoffer) {
+        this.courseoffer = courseoffer;
+    }
+    
+    
     
 }

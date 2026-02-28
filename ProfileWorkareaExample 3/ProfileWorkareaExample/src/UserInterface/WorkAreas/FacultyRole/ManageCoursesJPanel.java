@@ -4,17 +4,40 @@
  */
 package UserInterface.WorkAreas.FacultyRole;
 
+import Business.Course.Course;
+import Business.CourseSchedule.CourseOffer;
+import Business.Profiles.Faculty.*;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author hannahchiou
  */
 public class ManageCoursesJPanel extends javax.swing.JPanel {
 
+    private JTable tblCourses;
+    private DefaultTableModel tableModel;
+
+    // current logged-in faculty member
+    private FacultyProfile currentFaculty;
+
     /**
      * Creates new form ManageCoursesJPanel
      */
-    public ManageCoursesJPanel() {
+    public ManageCoursesJPanel(FacultyProfile faculty) {
+        this.currentFaculty = faculty;
         initComponents();
+        
+        tableModel = (DefaultTableModel) tblCourse.getModel();
+
+
+        generateCourses();
+        refreshCourseTable();
     }
 
     /**
@@ -29,39 +52,52 @@ public class ManageCoursesJPanel extends javax.swing.JPanel {
         jCheckBox1 = new javax.swing.JCheckBox();
         lblTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        btnDetails = new javax.swing.JButton();
+        tblCourse = new javax.swing.JTable();
+        btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         jCheckBox1.setText("jCheckBox1");
 
         lblTitle.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblTitle.setText("Manage Courses");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblCourse.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Course Name", "Course ID", "Course Price", "Course Credits"
+                "Course Name", "Course ID", "Course Credits"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, true
+                false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblCourse);
 
-        btnDetails.setText("View Details");
+        btnUpdate.setText("Update Course Details");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Delete Course");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnBack.setText("<< Back");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -73,36 +109,88 @@ public class ManageCoursesJPanel extends javax.swing.JPanel {
                         .addGap(47, 47, 47)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBack)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(158, 158, 158)
+                        .addGap(128, 128, 128)
                         .addComponent(btnDelete)
-                        .addGap(36, 36, 36)
-                        .addComponent(btnDetails)))
+                        .addGap(60, 60, 60)
+                        .addComponent(btnUpdate)))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addComponent(btnBack)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblTitle)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDetails)
+                    .addComponent(btnUpdate)
                     .addComponent(btnDelete))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblCourse.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Select a course to delete");
+            return;
+        }
+
+        String courseId = tableModel.getValueAt(selectedRow, 1).toString();
+        boolean removed = currentFaculty.removeCourseAssignment(courseId);
+
+        if (removed) {
+            refreshCourseTable();
+            JOptionPane.showMessageDialog(this, "Course removed successfully");
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnDetails;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JTable tblCourse;
     // End of variables declaration//GEN-END:variables
+
+    private void generateCourses() {
+    Course c1 = new Course("Concepts of OOD", "CSYE6200", 4);
+    CourseOffer co1 = new CourseOffer(c1);
+    currentFaculty.AssignAsTeacher(co1);
+    
+    Course c2 = new Course("Application Dev", "INFO5100", 4);
+CourseOffer co2 = new CourseOffer(c2);
+currentFaculty.AssignAsTeacher(co2);
+
+    }
+
+    private void refreshCourseTable() {
+tableModel.setRowCount(0);
+
+        for (FacultyAssignment fa : currentFaculty.getFacultyassignments()) {
+            CourseOffer co = fa.getCourseoffer();
+            if (co != null && co.getSubjectCourse() != null) {
+                Course c = co.getSubjectCourse();
+                tableModel.addRow(new Object[]{
+                        c.getName(),
+                        c.getNumber(),
+                        c.getCredits()
+                });
+            }
+        }
+    }
 }

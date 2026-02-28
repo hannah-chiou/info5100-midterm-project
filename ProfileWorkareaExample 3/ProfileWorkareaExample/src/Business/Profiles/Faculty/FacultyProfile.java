@@ -5,6 +5,7 @@
  */
 package Business.Profiles.Faculty;
 
+import Business.Course.Course;
 import Business.Profiles.*;
 import Business.CourseSchedule.CourseOffer;
 import Business.Person.Person;
@@ -49,6 +50,24 @@ public class FacultyProfile extends Profile {
         return fa;
     }
 
+    public FacultyAssignment getAssignmentByCourseId(String courseId) {
+        for (FacultyAssignment fa : facultyassignments) {
+            CourseOffer co = fa.getCourseoffer();
+            if (co != null) { // adapt matching method to your model
+                return fa;
+            }
+        }
+        return null;
+    }
+
+    public boolean removeCourseAssignment(String courseId) {
+        FacultyAssignment target = getAssignmentByCourseId(courseId);
+        if (target == null) {
+            return false;
+        }
+        return facultyassignments.remove(target);
+    }
+
     public FacultyProfile getCourseOffer(String courseid) {
         return null; //complete it later
     }
@@ -60,8 +79,18 @@ public class FacultyProfile extends Profile {
         return false;
     }
 
+    public ArrayList<FacultyAssignment> getFacultyassignments() {
+        return facultyassignments;
+    }
+    
+     public void setFacultyassignments(ArrayList<Course> sampleCourses) {
+      this.facultyassignments = facultyassignments;
+    }
+
     @Override
     public String getRole() {
         return "Faculty";
     }
+
+   
 }
