@@ -82,7 +82,7 @@ public class ModifyEmployeeAccountJPanel extends javax.swing.JPanel {
         Back.setBounds(40, 320, 90, 20);
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel2.setText("View Student Account");
+        jLabel2.setText("View Employee Account");
         add(jLabel2);
         jLabel2.setBounds(21, 20, 550, 28);
 
