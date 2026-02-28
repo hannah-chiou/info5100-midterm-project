@@ -8,6 +8,8 @@ package UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp;
 import Business.Business;
 import Business.UserAccounts.UserAccount;
 import Business.UserAccounts.UserAccountDirectory;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 import javax.swing.JPanel;
@@ -25,6 +27,8 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
     JPanel CardSequencePanel;
     Business business;
     UserAccount selecteduseraccount;
+    private LocalDateTime lastAccess;
+    private LocalDateTime lastUpdated;
 
 
     public ManageUserAccountsJPanel(Business bz, JPanel jp) {
@@ -35,7 +39,7 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
 
     }
 
-    public void refreshTable() {
+     public void refreshTable() {
 
 //clear supplier table
         int rc = UserAccountTable.getRowCount();
@@ -52,13 +56,14 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
 
         for (UserAccount ua : uad.getUserAccountList()) {
 
-            Object[] row = new Object[5];
-            row[0] = ua;
- //           row[1] = ua.getStatus(); //complete this..
- //           row[2] = ua.getLastUpdated()
- //           row[3] = 
+        Object[] row = new Object[5];
+        row[0] = ua;
+        row[1] = ua.getRole();           // role instead of getStatus()
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        row[2] = ua.getLastAccess() == null ? "Never" : ua.getLastAccess().format(formatter);
+        row[3] = ua.getLastUpdated() == null ? "Never" : ua.getLastUpdated().format(formatter);
 
-            ((DefaultTableModel) UserAccountTable.getModel()).addRow(row);
+        ((DefaultTableModel) UserAccountTable.getModel()).addRow(row);
         }
 
     }
@@ -74,7 +79,6 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         Back = new javax.swing.JButton();
-        Next = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -90,26 +94,17 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
             }
         });
         add(Back);
-        Back.setBounds(30, 300, 76, 32);
-
-        Next.setText("Next >>");
-        Next.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NextActionPerformed(evt);
-            }
-        });
-        add(Next);
-        Next.setBounds(500, 300, 80, 32);
+        Back.setBounds(30, 300, 80, 23);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("User Accounts");
         add(jLabel1);
-        jLabel1.setBounds(30, 90, 190, 19);
+        jLabel1.setBounds(30, 90, 190, 17);
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel2.setText("Manage User Accounts");
         add(jLabel2);
-        jLabel2.setBounds(21, 20, 550, 29);
+        jLabel2.setBounds(21, 20, 550, 28);
 
         UserAccountTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -141,15 +136,6 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_BackActionPerformed
 
-    private void NextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextActionPerformed
-        // TODO add your handling code here:
-        if(selecteduseraccount==null) return;
-        AdminUserAccount mppd = new AdminUserAccount(selecteduseraccount, CardSequencePanel);
-        CardSequencePanel.add(mppd);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
-
-    }//GEN-LAST:event_NextActionPerformed
-
     private void UserAccountTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UserAccountTableMousePressed
         // Extracts the row (uaser account) in the table that is selected by the user
         int size = UserAccountTable.getRowCount();
@@ -171,7 +157,6 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
-    private javax.swing.JButton Next;
     private javax.swing.JTable UserAccountTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

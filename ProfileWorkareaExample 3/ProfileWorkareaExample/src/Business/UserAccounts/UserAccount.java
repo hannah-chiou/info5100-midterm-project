@@ -6,6 +6,7 @@
 package Business.UserAccounts;
 
 import Business.Profiles.Profile;
+import java.time.LocalDateTime;
 
 
 
@@ -18,6 +19,8 @@ public class UserAccount {
     Profile profile;
     String username;
     String password;
+    private LocalDateTime lastAccess;
+    private LocalDateTime lastUpdated;
     
     public UserAccount (Profile profile, String un, String pw){
         username = un;
@@ -33,6 +36,19 @@ public class UserAccount {
         return username;
     }
 
+    public String getPassword(){
+        return password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    
         public boolean isMatch(String id){
         if(getPersonId().equals(id)) return true;
         return false;
@@ -51,6 +67,22 @@ public class UserAccount {
             return profile;
         }
         
+        public void setLastAccess(LocalDateTime lastAccess) {
+            this.lastAccess = lastAccess;
+        }
+        
+         public LocalDateTime getLastAccess() {
+        return lastAccess;
+         }
+         
+        public LocalDateTime getLastUpdated() {
+            return lastUpdated;
+        }
+
+        public void setLastUpdated(LocalDateTime lastUpdated) {
+            this.lastUpdated = lastUpdated;
+        }
+
     @Override
         public String toString(){
             
