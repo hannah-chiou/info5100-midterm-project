@@ -43,4 +43,8 @@ public class StudentDirectory {
             return null; //not found after going through the whole list
          }
     
+    public void removeStudent(StudentProfile sp) {
+       studentlist.remove(sp);
+    }
+    
 }

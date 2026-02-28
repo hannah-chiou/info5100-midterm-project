@@ -36,6 +36,19 @@ public class UserAccount {
         return username;
     }
 
+    public String getPassword(){
+        return password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    
         public boolean isMatch(String id){
         if(getPersonId().equals(id)) return true;
         return false;

@@ -8,6 +8,7 @@ package Business.Profiles;
 import Business.CourseSchedule.CourseLoad;
 import Business.CourseSchedule.SeatAssignment;
 import Business.Person.Person;
+import Business.UserAccounts.UserAccount;
 import java.util.ArrayList;
 
 /**
@@ -18,6 +19,7 @@ public class StudentProfile extends Profile {
 
     Person person;
     Transcript transcript;
+    private UserAccount ua;
 
     public StudentProfile(Person p) {
         super(p);
@@ -55,6 +57,10 @@ public class StudentProfile extends Profile {
         return transcript.getCourseList();
 
     }
+    
+      public void setUserAccount(UserAccount ua) {
+    this.ua = ua;
+}
 
     @Override
     public String getRole() {
