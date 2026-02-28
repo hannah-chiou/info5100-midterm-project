@@ -6,6 +6,7 @@
 package Business.Profiles;
 
 import Business.Person.Person;
+import Business.UserAccounts.UserAccount;
 
 /**
  *
@@ -13,13 +14,19 @@ import Business.Person.Person;
  */
 public class EmployeeProfile extends Profile {
 
-
+    private UserAccount ua;
 
     public EmployeeProfile(Person p) {
 
         super(p); 
 
     }
+    
+    public void setUserAccount(UserAccount ua) {
+    this.ua = ua;
+    
+    }
+    
     @Override
     public String getRole(){
         return  "Admin";
