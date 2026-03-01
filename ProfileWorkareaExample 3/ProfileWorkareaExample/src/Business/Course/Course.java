@@ -35,6 +35,8 @@ public class Course {
         this.name = name;
     }
     
+    
+
     public int getCoursePrice() {
         return price * credits;
 
