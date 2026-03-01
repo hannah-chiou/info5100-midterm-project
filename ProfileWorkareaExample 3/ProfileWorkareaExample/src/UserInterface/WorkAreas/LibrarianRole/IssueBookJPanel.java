@@ -5,6 +5,9 @@
 package UserInterface.WorkAreas.LibrarianRole;
 
 import Business.Business;
+import Business.Library.Book;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -43,8 +46,6 @@ Business business;
         btnIssueBook = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
-        cmbMemberType = new javax.swing.JComboBox<>();
-        lblMemberType = new javax.swing.JLabel();
         txtNUID = new javax.swing.JTextField();
         lblBookID = new javax.swing.JLabel();
         lblBookName = new javax.swing.JLabel();
@@ -54,7 +55,6 @@ Business business;
         txtBookName = new javax.swing.JTextField();
         txtAuthorName = new javax.swing.JTextField();
         txtAvailability = new javax.swing.JTextField();
-        btnBookSearch = new javax.swing.JButton();
         lblIssueDate = new javax.swing.JLabel();
         txtIssueDate = new javax.swing.JTextField();
         lblDueDate = new javax.swing.JLabel();
@@ -65,6 +65,11 @@ Business business;
         setBackground(new java.awt.Color(0, 153, 153));
 
         btnIssueBook.setText("Issue Book");
+        btnIssueBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIssueBookActionPerformed(evt);
+            }
+        });
 
         btnClear.setText("Clear");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
@@ -74,10 +79,11 @@ Business business;
         });
 
         btnBack.setText("<<Back");
-
-        cmbMemberType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        lblMemberType.setText("Member Type:");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         lblBookID.setText("Book ID:");
 
@@ -98,8 +104,6 @@ Business business;
                 txtAuthorNameActionPerformed(evt);
             }
         });
-
-        btnBookSearch.setText("Search");
 
         lblIssueDate.setText("Issue Date:");
 
@@ -123,10 +127,9 @@ Business business;
                             .addComponent(btnBack))
                         .addGap(30, 30, 30))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblBookID, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblMemberType, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblBookName, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblAuthorName, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblAvailability, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -134,13 +137,9 @@ Business business;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtBookID, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(btnBookSearch)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtNUID)
-                            .addComponent(cmbMemberType, 0, 147, Short.MAX_VALUE))
+                        .addComponent(txtNUID, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                         .addGap(345, 345, 345))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,15 +180,10 @@ Business business;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNUID)
                     .addComponent(txtNUID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cmbMemberType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblMemberType))
-                .addGap(40, 40, 40)
+                .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBookID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBookID)
-                    .addComponent(btnBookSearch))
+                    .addComponent(lblBookID))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBookName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,12 +206,13 @@ Business business;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnIssueBook)
                     .addComponent(btnClear))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
+         clearFields();
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void txtBookNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBookNameActionPerformed
@@ -228,13 +223,54 @@ Business business;
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAuthorNameActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+         CardSequencePanel.remove(this);
+        CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+        layout.show(CardSequencePanel, "LibrarianHome");  
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnIssueBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIssueBookActionPerformed
+        // TODO add your handling code here:
+         String bookId = txtBookID.getText();
+        String nuid = txtNUID.getText();
+        String issueDate = txtIssueDate.getText();
+        String dueDate = txtDueDate.getText();
+
+        if (bookId.isEmpty() || nuid.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Fill all required fields!");
+            return;
+        }
+
+        for (Book book : business.getBookDirectory().getBookList()) {
+
+            if (book.getBookId().equals(bookId)) {
+
+                if (!book.isAvailable()) {
+                    JOptionPane.showMessageDialog(this, "Book already issued!");
+                    return;
+                }
+
+                book.setAvailable(false);
+                book.setIssuedTo(nuid);
+                book.setIssueDate(issueDate);
+                book.setDueDate(dueDate);
+
+                JOptionPane.showMessageDialog(this, "Book Issued Successfully!");
+
+                clearFields();
+                return;
+            }
+        }
+
+        JOptionPane.showMessageDialog(this, "Book Not Found!");    
+    }//GEN-LAST:event_btnIssueBookActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnBookSearch;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnIssueBook;
-    private javax.swing.JComboBox<String> cmbMemberType;
     private javax.swing.JLabel lblAuthorName;
     private javax.swing.JLabel lblAvailability;
     private javax.swing.JLabel lblBookID;
@@ -242,7 +278,6 @@ Business business;
     private javax.swing.JLabel lblBookName;
     private javax.swing.JLabel lblDueDate;
     private javax.swing.JLabel lblIssueDate;
-    private javax.swing.JLabel lblMemberType;
     private javax.swing.JLabel lblNUID;
     private javax.swing.JTextField txtAuthorName;
     private javax.swing.JTextField txtAvailability;
