@@ -12,6 +12,9 @@ import Business.Profiles.EmployeeDirectory;
 import Business.Profiles.LibrarianDirectory;
 import Business.Profiles.StudentDirectory;
 import Business.Profiles.LibrarianDirectory;
+import Business.Profiles.EmployeeDirectory;
+import Business.Profiles.Faculty.FacultyDirectory;
+
 import Business.UserAccounts.UserAccountDirectory;
 
 /**
@@ -25,6 +28,7 @@ public class Business {
     EmployeeDirectory employeedirectory;
     UserAccountDirectory useraccountdirectory;
     StudentDirectory studentdirectory;
+    FacultyDirectory facultydirectory; 
     Department thisDepartment;
     BookDirectory bookDirectory;
     LibrarianDirectory librarianDirectory;
@@ -32,7 +36,7 @@ public class Business {
 
     public Business(String n) {
         name = n;
-
+        
         persondirectory = new PersonDirectory();
         employeedirectory = new EmployeeDirectory(this);
         useraccountdirectory = new UserAccountDirectory();   
@@ -41,6 +45,15 @@ public class Business {
         bookDirectory = new BookDirectory();
         librarianDirectory = new LibrarianDirectory();
 
+        facultydirectory = new FacultyDirectory(thisDepartment);
+
+    }
+    public void setDepartment(Department d) {
+        this.thisDepartment = d;
+        studentdirectory = new StudentDirectory(thisDepartment);
+    }
+    public Department getDepartment() {
+        return thisDepartment;
     }
 
     public PersonDirectory getPersonDirectory() {
@@ -67,4 +80,13 @@ public class Business {
     public LibrarianDirectory getLibrarianDirectory() {
     return librarianDirectory;
 }
+    public FacultyDirectory getFacultydirectory() {
+        return facultydirectory;
+    }
+
+    public void setFacultydirectory(FacultyDirectory facultydirectory) {
+        this.facultydirectory = facultydirectory;
+    }
+    
+    
 }

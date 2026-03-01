@@ -24,7 +24,7 @@ import java.util.HashMap;
 public class Department {
 
     String name;
-    CourseCatalog coursecatalog;
+    public CourseCatalog coursecatalog;
     PersonDirectory persondirectory;
     StudentDirectory studentdirectory;
     FacultyDirectory facultydirectory;
@@ -41,11 +41,19 @@ public class Department {
         degree = new Degree("MSIS");
         
     }
+
+    public Degree getDegree() {
+        return degree;
+    }
+
+    public void setDegree(Degree degree) {
+        this.degree = degree;
+    }
     public void addCoreCourse(Course c){
         degree.addCoreCourse(c);
         
     }
-public void addElectiveCourse(Course c){
+    public void addElectiveCourse(Course c){
         degree.addElectiveCourse(c);
         
     }

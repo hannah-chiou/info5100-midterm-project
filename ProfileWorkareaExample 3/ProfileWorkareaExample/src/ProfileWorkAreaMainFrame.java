@@ -8,16 +8,21 @@ import Business.Business;
 import Business.Profiles.LibrarianProfile;
 import UserInterface.WorkAreas.LibrarianRole.LibrarianWorkAreaJPanel;
 
+
+import Business.Business;
 import Business.Profiles.EmployeeProfile;
+import Business.Profiles.Faculty.FacultyProfile;
 import Business.Profiles.Profile;
 import Business.Profiles.StudentProfile;
 
 import Business.UserAccounts.UserAccount;
 import Business.UserAccounts.UserAccountDirectory;
+import java.time.LocalDateTime;
 
 import UserInterface.WorkAreas.AdminRole.AdminRoleWorkAreaJPanel;
 import UserInterface.WorkAreas.FacultyRole.FacultyWorkAreaJPanel;
 import UserInterface.WorkAreas.StudentRole.StudentWorkAreaJPanel;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -31,11 +36,9 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
     /**
      * Creates new form PricingMainFrame
      */
-
     public ProfileWorkAreaMainFrame() {
         initComponents();
         business = ConfigureABusiness.initialize();
-        
 
     }
 
@@ -114,6 +117,13 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(PasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(60, 60, 60))))
+                .addGroup(actionsidejpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLogout)
+                    .addComponent(jLabel1)
+                    .addComponent(UserNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(PasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         actionsidejpanelLayout.setVerticalGroup(
             actionsidejpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,6 +141,11 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
                     .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(381, 381, 381))
+                .addGap(16, 16, 16)
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnLogout)
+                .addContainerGap())
         );
 
         SplitHomeArea.setLeftComponent(actionsidejpanel);
@@ -166,17 +181,17 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
         AdminRoleWorkAreaJPanel adminworkarea;
         String r = useraccount.getRole();
         Profile profile = useraccount.getAssociatedPersonProfile();
-
+        useraccount.setLastAccess(java.time.LocalDateTime.now());
 
         if (profile instanceof EmployeeProfile) {
 
-            adminworkarea = new AdminRoleWorkAreaJPanel(business, CardSequencePanel);
+            adminworkarea = new AdminRoleWorkAreaJPanel(business, CardSequencePanel,useraccount);
             CardSequencePanel.removeAll();
             CardSequencePanel.add("Admin", adminworkarea);
             ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
         }
-        
+
         if (profile instanceof StudentProfile) {
 
             StudentProfile spp = (StudentProfile) profile;
@@ -202,12 +217,23 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
         
  /*      if (profile instanceof FacultyProfile) {
             facultyworkarea = new FacultyWorkAreaJPanel(business, CardSequencePanel);
+        if (profile instanceof FacultyProfile) {
+            FacultyProfile fp = (FacultyProfile) profile;
+
+            facultyworkarea = new FacultyWorkAreaJPanel(business, CardSequencePanel, fp);
+
             CardSequencePanel.removeAll();
             CardSequencePanel.add("faculty", facultyworkarea);
-            ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+
+            CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+            layout.next(CardSequencePanel);
+
+            // ✅ REQUIRED FOR UI TO UPDATE
+            CardSequencePanel.revalidate();
+            CardSequencePanel.repaint();
 
         }
-*/
+
 
     }//GEN-LAST:event_LoginButtonActionPerformed
 

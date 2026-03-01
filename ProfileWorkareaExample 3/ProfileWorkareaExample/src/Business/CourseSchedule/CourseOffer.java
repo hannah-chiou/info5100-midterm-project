@@ -19,10 +19,15 @@ public class CourseOffer {
     Course course;
     ArrayList<Seat> seatlist;
     FacultyAssignment facultyassignment;
+    CourseSchedule courseSchedule;
 
-    public CourseOffer(Course c) {
+    public CourseOffer(Course c, CourseSchedule cs) {
         course = c;
+        courseSchedule = cs;
         seatlist = new ArrayList();
+    }
+    public CourseSchedule getCourseSchedule() {
+        return courseSchedule;
     }
      
     public void AssignAsTeacher(FacultyProfile fp) {
@@ -89,5 +94,5 @@ public class CourseOffer {
     public int getCreditHours(){
         return course.getCredits();
     }
-
+    
 }

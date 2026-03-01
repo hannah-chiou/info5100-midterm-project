@@ -32,6 +32,7 @@ public class FacultyDirectory {
         teacherlist.add(sp);
         return sp;
     }
+
     
     public FacultyProfile getTopProfessor(){
         
@@ -56,5 +57,10 @@ public class FacultyDirectory {
         }
             return null; //not found after going through the whole list
          }
+    
+    
+    public void removeFaculty(FacultyProfile fp) {
+       teacherlist.remove(fp);
+    }
     
 }
