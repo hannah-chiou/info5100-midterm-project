@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Business;
+import Business.Business;
+
+import Business.Profiles.LibrarianProfile;
+import UserInterface.WorkAreas.LibrarianRole.LibrarianWorkAreaJPanel;
 
 import Business.Profiles.EmployeeProfile;
 import Business.Profiles.Profile;
@@ -165,7 +168,20 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
             ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
         }
+        
+        
+        if (profile instanceof LibrarianProfile) {
 
+            LibrarianProfile lp = (LibrarianProfile) profile;
+
+            LibrarianWorkAreaJPanel librarianWorkArea
+                    = new LibrarianWorkAreaJPanel(business, lp, useraccount, CardSequencePanel);
+
+            CardSequencePanel.removeAll();
+            CardSequencePanel.add("Librarian", librarianWorkArea);
+            ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        }
+        
  /*      if (profile instanceof FacultyProfile) {
             facultyworkarea = new FacultyWorkAreaJPanel(business, CardSequencePanel);
             CardSequencePanel.removeAll();
