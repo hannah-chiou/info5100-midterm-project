@@ -4,6 +4,7 @@
  * and open the template in the editor.
 
 */
+import Business.Business;
 
 
 import Business.Business;
@@ -27,6 +28,11 @@ import Business.UserAccounts.UserAccount;
 import Business.UserAccounts.UserAccountDirectory;
 import java.util.ArrayList;
 
+import Business.Profiles.LibrarianDirectory;
+import Business.Profiles.LibrarianProfile;
+
+import Business.UserAccounts.UserAccountDirectory;
+import Business.Profiles.LibrarianProfile;
 
 /**
  *
@@ -50,6 +56,13 @@ class ConfigureABusiness {
         Person person008 = persondirectory.newPerson("Jack While");
         Person person009 = persondirectory.newPerson("Fidelity"); //we use this as customer
 
+         // Default Library Books
+        business.getBookDirectory().addBook("B101", "Java Programming", "James Gosling");
+        business.getBookDirectory().addBook("B102", "Python Fundamentals", "Guido van Rossum");
+        business.getBookDirectory().addBook("B103", "Data Structures", "Mark Allen");
+        business.getBookDirectory().addBook("B104", "Database Systems", "Elmasri");
+        business.getBookDirectory().addBook("B105", "Operating Systems", "Silberschatz");
+        
 // Create Admins to manage the business
         EmployeeDirectory employeedirectory = business.getEmployeeDirectory();
         EmployeeProfile employeeprofile0 = employeedirectory.newEmployeeProfile(person001);
@@ -102,6 +115,18 @@ class ConfigureABusiness {
         department.addElectiveCourse(c007);
         department.addElectiveCourse(c008);
 
+        
+    
+ ///Person librarianPerson = persondirectory.newPerson("Lib001");
+ 
+            
+       Person librarianPerson = persondirectory.newPerson("Lib001");
+
+        LibrarianProfile librarianProfile
+                = business.getLibrarianDirectory().newLibrarianProfile(librarianPerson);
+
+        uadirectory.newUserAccount(librarianProfile, "librarian", "1234");
+
         ArrayList<CourseOffer> courseList1 = cs001.getSchedule();
         for(int i = 0; i < courseList1.size(); i++){
             CourseOffer currentCourse = courseList1.get(i);
@@ -120,4 +145,7 @@ class ConfigureABusiness {
 
     }
 
-}
+
+    }
+
+

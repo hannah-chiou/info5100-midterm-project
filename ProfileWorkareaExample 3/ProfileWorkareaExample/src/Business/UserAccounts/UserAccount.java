@@ -55,9 +55,11 @@ public class UserAccount {
     }
         public boolean IsValidUser(String un, String pw){
         
-            if (username.equalsIgnoreCase(un) && password.equals(pw)) return true;
-            else return false;
-        
+            if (username.equalsIgnoreCase(un) && password.equals(pw)){ 
+                return true;
+        }else{
+                return false;
+        }
         }
         public String getRole(){
             return profile.getRole();
@@ -66,6 +68,21 @@ public class UserAccount {
         public Profile getAssociatedPersonProfile(){
             return profile;
         }
+        public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
         
         public void setLastAccess(LocalDateTime lastAccess) {
             this.lastAccess = lastAccess;

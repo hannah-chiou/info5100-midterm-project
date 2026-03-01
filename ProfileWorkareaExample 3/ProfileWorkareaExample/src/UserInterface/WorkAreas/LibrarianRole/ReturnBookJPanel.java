@@ -4,6 +4,12 @@
  */
 package UserInterface.WorkAreas.LibrarianRole;
 
+import Business.Business;
+import Business.Library.Book;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author lajon
@@ -13,8 +19,22 @@ public class ReturnBookJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ReturnBookJPanel
      */
-    public ReturnBookJPanel() {
+     Business business;
+    JPanel CardSequencePanel;
+
+    public ReturnBookJPanel(Business b, JPanel jp) {
+        this.business = b;
+        this.CardSequencePanel = jp;
         initComponents();
+    }
+
+    private void clearFields() {
+        txtBookID.setText("");
+        txtBookName.setText("");
+        txtAuthorName.setText("");
+        txtReturnIssueDate.setText("");
+        txtReturnDueDate.setText("");
+        txtReturnDate.setText("");
     }
 
     /**
@@ -39,15 +59,12 @@ public class ReturnBookJPanel extends javax.swing.JPanel {
         txtReturnDate = new javax.swing.JTextField();
         btnReturnBook = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
-        lblMemberType = new javax.swing.JLabel();
         lblReturnDate = new javax.swing.JLabel();
         lblTitleReturn = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
         lblReturnIssueDate = new javax.swing.JLabel();
-        btnSearch = new javax.swing.JButton();
         txtReturnIssueDate = new javax.swing.JTextField();
         txtReturnDueDate = new javax.swing.JTextField();
-        cmbMemberType = new javax.swing.JComboBox<>();
         lblBookID = new javax.swing.JLabel();
         lblBookName = new javax.swing.JLabel();
         lblAuthorName = new javax.swing.JLabel();
@@ -99,6 +116,11 @@ public class ReturnBookJPanel extends javax.swing.JPanel {
         });
 
         btnReturnBook.setText("Return Book");
+        btnReturnBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReturnBookActionPerformed(evt);
+            }
+        });
 
         btnClear.setText("Clear");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
@@ -107,26 +129,25 @@ public class ReturnBookJPanel extends javax.swing.JPanel {
             }
         });
 
-        lblMemberType.setText("Member Type:");
-
         lblReturnDate.setText("Return Date:");
 
         lblTitleReturn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTitleReturn.setText("Return Book");
 
         btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         lblReturnIssueDate.setText("Issue Date:");
-
-        btnSearch.setText("Search");
 
         txtReturnDueDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtReturnDueDateActionPerformed(evt);
             }
         });
-
-        cmbMemberType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblBookID.setText("Book ID:");
 
@@ -173,14 +194,8 @@ public class ReturnBookJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(103, 103, 103)
-                                .addComponent(lblMemberType, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtBookID, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                                    .addComponent(cmbMemberType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSearch))
+                                .addGap(197, 197, 197)
+                                .addComponent(txtBookID, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -235,13 +250,8 @@ public class ReturnBookJPanel extends javax.swing.JPanel {
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBookID)
-                    .addComponent(txtBookID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbMemberType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblMemberType))
-                .addGap(30, 30, 30)
+                    .addComponent(txtBookID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(71, 71, 71)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblBookName)
                     .addComponent(txtBookName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -256,7 +266,7 @@ public class ReturnBookJPanel extends javax.swing.JPanel {
                             .addComponent(lblReturnIssueDate)
                             .addComponent(txtReturnIssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDueDate)
                             .addComponent(txtReturnDueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
@@ -273,7 +283,7 @@ public class ReturnBookJPanel extends javax.swing.JPanel {
                             .addComponent(lblDaysLate)
                             .addComponent(txtDaysLate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblFinePerDay)
                             .addComponent(txtFinePerDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
@@ -298,6 +308,7 @@ public class ReturnBookJPanel extends javax.swing.JPanel {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
+         clearFields();    
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void txtReturnDueDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReturnDueDateActionPerformed
@@ -324,13 +335,51 @@ public class ReturnBookJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDaysLateActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+          CardSequencePanel.remove(this);
+        CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+        layout.show(CardSequencePanel, "LibrarianHome");   
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnReturnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnBookActionPerformed
+        // TODO add your handling code here:
+        String bookId = txtBookID.getText();
+
+        if (bookId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter Book ID");
+            return;
+        }
+
+        for (Book book : business.getBookDirectory().getBookList()) {
+
+            if (book.getBookId().equals(bookId)) {
+
+                if (book.isAvailable()) {
+                    JOptionPane.showMessageDialog(this, "Book is already available!");
+                    return;
+                }
+
+                book.setAvailable(true);
+                book.setIssuedTo(null);
+                book.setIssueDate(null);
+                book.setDueDate(null);
+
+                JOptionPane.showMessageDialog(this, "Book Returned Successfully!");
+
+                clearFields();
+                return;
+            }
+        }
+
+        JOptionPane.showMessageDialog(this, "Book Not Found!"); 
+    }//GEN-LAST:event_btnReturnBookActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnReturnBook;
-    private javax.swing.JButton btnSearch;
-    private javax.swing.JComboBox<String> cmbMemberType;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lblAuthorName;
     private javax.swing.JLabel lblBookID;
@@ -340,7 +389,6 @@ public class ReturnBookJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblDueDate2;
     private javax.swing.JLabel lblFinePerDay;
     private javax.swing.JLabel lblIssueDate2;
-    private javax.swing.JLabel lblMemberType;
     private javax.swing.JLabel lblReturnDate;
     private javax.swing.JLabel lblReturnIssueDate;
     private javax.swing.JLabel lblTitleReturn;
