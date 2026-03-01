@@ -5,6 +5,9 @@
 package UserInterface.WorkAreas.LibrarianRole;
 
 import Business.Business;
+import Business.Library.Book;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -305,6 +308,7 @@ public class ReturnBookJPanel extends javax.swing.JPanel {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
+         clearFields();    
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void txtReturnDueDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReturnDueDateActionPerformed
@@ -333,10 +337,42 @@ public class ReturnBookJPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+          CardSequencePanel.remove(this);
+        CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+        layout.show(CardSequencePanel, "LibrarianHome");   
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnReturnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnBookActionPerformed
         // TODO add your handling code here:
+        String bookId = txtBookID.getText();
+
+        if (bookId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter Book ID");
+            return;
+        }
+
+        for (Book book : business.getBookDirectory().getBookList()) {
+
+            if (book.getBookId().equals(bookId)) {
+
+                if (book.isAvailable()) {
+                    JOptionPane.showMessageDialog(this, "Book is already available!");
+                    return;
+                }
+
+                book.setAvailable(true);
+                book.setIssuedTo(null);
+                book.setIssueDate(null);
+                book.setDueDate(null);
+
+                JOptionPane.showMessageDialog(this, "Book Returned Successfully!");
+
+                clearFields();
+                return;
+            }
+        }
+
+        JOptionPane.showMessageDialog(this, "Book Not Found!"); 
     }//GEN-LAST:event_btnReturnBookActionPerformed
 
 
