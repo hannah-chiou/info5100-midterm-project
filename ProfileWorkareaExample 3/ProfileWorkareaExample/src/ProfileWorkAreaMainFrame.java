@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Business;
 
+
+import Business.Business;
 import Business.Profiles.EmployeeProfile;
 import Business.Profiles.Faculty.FacultyProfile;
 import Business.Profiles.Profile;
@@ -157,7 +158,7 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
 
         if (profile instanceof EmployeeProfile) {
 
-            adminworkarea = new AdminRoleWorkAreaJPanel(business, CardSequencePanel);
+            adminworkarea = new AdminRoleWorkAreaJPanel(business, CardSequencePanel,useraccount);
             CardSequencePanel.removeAll();
             CardSequencePanel.add("Admin", adminworkarea);
             ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);

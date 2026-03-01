@@ -27,6 +27,14 @@ public class CourseSchedule {
 
     }
 
+    public ArrayList<CourseOffer> getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(ArrayList<CourseOffer> schedule) {
+        this.schedule = schedule;
+    }
+    
     public CourseOffer newCourseOffer(String  n) {
 
         Course c = coursecatalog.getCourseByNumber(n);

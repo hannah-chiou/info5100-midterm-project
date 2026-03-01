@@ -24,7 +24,7 @@ import java.util.HashMap;
 public class Department {
 
     String name;
-    CourseCatalog coursecatalog;
+    public CourseCatalog coursecatalog;
     PersonDirectory persondirectory;
     StudentDirectory studentdirectory;
     FacultyDirectory facultydirectory;

@@ -195,8 +195,10 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnRegistrationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrationActionPerformed
         // TODO add your handling code here:
-
-        CardSequencePanel.removeAll();
+        StudentRegistrationJPanel aos = new StudentRegistrationJPanel(courseLoad, CardSequencePanel);
+        CardSequencePanel.add("RegisterCourses", aos);
+        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        
 }//GEN-LAST:event_btnRegistrationActionPerformed
 
     private void btnTranscriptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTranscriptActionPerformed
