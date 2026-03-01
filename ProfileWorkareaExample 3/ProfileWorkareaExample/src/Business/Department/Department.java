@@ -41,11 +41,19 @@ public class Department {
         degree = new Degree("MSIS");
         
     }
+
+    public Degree getDegree() {
+        return degree;
+    }
+
+    public void setDegree(Degree degree) {
+        this.degree = degree;
+    }
     public void addCoreCourse(Course c){
         degree.addCoreCourse(c);
         
     }
-public void addElectiveCourse(Course c){
+    public void addElectiveCourse(Course c){
         degree.addElectiveCourse(c);
         
     }

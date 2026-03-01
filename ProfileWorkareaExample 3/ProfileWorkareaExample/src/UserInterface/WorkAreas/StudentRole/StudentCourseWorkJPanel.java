@@ -1,6 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+/**
+ *
+ * @author Kenneth Garcia NUID 003166112
  */
 package UserInterface.WorkAreas.StudentRole;
 
@@ -14,10 +14,15 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 import Business.Business;
+import Business.Course.Course;
 import Business.CourseSchedule.CourseLoad;
 import Business.CourseSchedule.SeatAssignment;
 import Business.UserAccounts.UserAccount;
+import java.awt.CardLayout;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -33,6 +38,7 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
     public StudentCourseWorkJPanel(CourseLoad cl, JPanel jp) {
         CardSequencePanel = jp;
         this.courseLoad = cl;
+        
         initComponents();
         refreshTable(cl);
     }
@@ -48,11 +54,15 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
         }
         
         for (SeatAssignment sa : cl.getSeatAssignments()) {
-            Object[] row = new Object[1];
-            row[0] = cl;
-
+            String course = sa.getCourseOffer().getCourseNumber();
+            
+            Object[] row = new Object[3];
+            row[0] = course;
+            row[1] = sa.getAssociatedCourse().getName();
+            row[2] = sa;
             ((DefaultTableModel) tblCourseLoad.getModel()).addRow(row);
         }
+        TableColumnModel columnModel = tblCourseLoad.getColumnModel();
     }
 
     /**
@@ -70,7 +80,8 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
         lblTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCourseLoad = new javax.swing.JTable();
-        txtSemester = new javax.swing.JTextField();
+
+        setBackground(new java.awt.Color(51, 0, 204));
 
         btnBack.setText("<< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -93,15 +104,30 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
 
         tblCourseLoad.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Course Number", "Course Name"
+                "Course Name", "Course ID", "Grade"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblCourseLoad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tblCourseLoadMousePressed(evt);
@@ -109,21 +135,13 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblCourseLoad);
 
-        txtSemester.setText("Semester");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -144,9 +162,7 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lblTitle)
-                .addGap(18, 18, 18)
-                .addComponent(txtSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(46, 46, 46)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(99, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,22 +186,40 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
         // TODO add your handling code here:
+        int selectedRow = tblCourseLoad.getSelectedRow();
+    if (selectedRow < 0) {
+        JOptionPane.showMessageDialog(this, 
+            "Please select a course first", 
+            "No Selection", 
+            JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    SeatAssignment selectedSA = (SeatAssignment) tblCourseLoad.getValueAt(selectedRow, 2);
+    
+    if (selectedSA != null) {
+        // Create and add the ManageCourseJPanel
+        StudentManageCourseJPanel managePanel = new StudentManageCourseJPanel(selectedSA, CardSequencePanel);
+        CardSequencePanel.add(managePanel, "ManageCourse");
         
+        // Switch to the new panel
+        java.awt.CardLayout cardLayout = (java.awt.CardLayout) CardSequencePanel.getLayout();
+        cardLayout.next(CardSequencePanel);
+    } else {
+        JOptionPane.showMessageDialog(this, 
+            "Error loading course details", 
+            "Error", 
+            JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void tblCourseLoadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCourseLoadMousePressed
         // Extracts the row (uaser account) in the table that is selected by the user
         int size = tblCourseLoad.getRowCount();
         int selectedrow = tblCourseLoad.getSelectionModel().getLeadSelectionIndex();
-
         if (selectedrow < 0 || selectedrow > size - 1) {
             return;
         }
-        selectedSeatAssignment = (SeatAssignment) tblCourseLoad.getValueAt(selectedrow, 0);
-        if (selectedSeatAssignment == null) {
-            return;
-        }
-
+        selectedSeatAssignment = (SeatAssignment) tblCourseLoad.getValueAt(selectedrow, 2);
     }//GEN-LAST:event_tblCourseLoadMousePressed
 
 
@@ -196,6 +230,5 @@ public class StudentCourseWorkJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblTblTitle;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTable tblCourseLoad;
-    private javax.swing.JTextField txtSemester;
     // End of variables declaration//GEN-END:variables
 }

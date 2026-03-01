@@ -32,13 +32,20 @@ public class Business {
 
     public Business(String n) {
         name = n;
-
+        
         persondirectory = new PersonDirectory();
         employeedirectory = new EmployeeDirectory(this);
         useraccountdirectory = new UserAccountDirectory();   
         studentdirectory = new StudentDirectory(thisDepartment);
         facultydirectory = new FacultyDirectory(thisDepartment);
 
+    }
+    public void setDepartment(Department d) {
+        this.thisDepartment = d;
+        studentdirectory = new StudentDirectory(thisDepartment);
+    }
+    public Department getDepartment() {
+        return thisDepartment;
     }
 
     public PersonDirectory getPersonDirectory() {
