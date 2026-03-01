@@ -4,17 +4,31 @@
  */
 package UserInterface.WorkAreas.LibrarianRole;
 
+import Business.Business;
+import javax.swing.JPanel;
+
 /**
  *
  * @author lajon
  */
 public class IssueBookJPanel extends javax.swing.JPanel {
+Business business;
+    JPanel CardSequencePanel;
 
+    public IssueBookJPanel(Business b, JPanel jp) {
+        this.business = b;
+        this.CardSequencePanel = jp;
+        initComponents();
+    }
     /**
      * Creates new form IssueBookJPanel
      */
-    public IssueBookJPanel() {
-        initComponents();
+    private void clearFields() {
+        txtBookID.setText("");
+        txtBookName.setText("");
+        txtAuthorName.setText("");
+        txtAvailability.setText("");
+        txtNUID.setText("");
     }
 
     /**

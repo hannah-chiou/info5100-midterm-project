@@ -172,9 +172,9 @@
                           <Component id="txtReturnIssueDate" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblDueDate" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtReturnDueDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtReturnDueDate" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -194,9 +194,9 @@
                           <Component id="txtDaysLate" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblFinePerDay" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFinePerDay" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFinePerDay" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">

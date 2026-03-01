@@ -4,6 +4,9 @@
  */
 package UserInterface.WorkAreas.LibrarianRole;
 
+import Business.Business;
+import javax.swing.JPanel;
+
 /**
  *
  * @author lajon
@@ -13,8 +16,22 @@ public class ReturnBookJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ReturnBookJPanel
      */
-    public ReturnBookJPanel() {
+     Business business;
+    JPanel CardSequencePanel;
+
+    public ReturnBookJPanel(Business b, JPanel jp) {
+        this.business = b;
+        this.CardSequencePanel = jp;
         initComponents();
+    }
+
+    private void clearFields() {
+        txtBookID.setText("");
+        txtBookName.setText("");
+        txtAuthorName.setText("");
+        txtReturnIssueDate.setText("");
+        txtReturnDueDate.setText("");
+        txtReturnDate.setText("");
     }
 
     /**
@@ -256,7 +273,7 @@ public class ReturnBookJPanel extends javax.swing.JPanel {
                             .addComponent(lblReturnIssueDate)
                             .addComponent(txtReturnIssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDueDate)
                             .addComponent(txtReturnDueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
@@ -273,7 +290,7 @@ public class ReturnBookJPanel extends javax.swing.JPanel {
                             .addComponent(lblDaysLate)
                             .addComponent(txtDaysLate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblFinePerDay)
                             .addComponent(txtFinePerDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
