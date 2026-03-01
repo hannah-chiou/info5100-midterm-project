@@ -19,7 +19,7 @@ public class CourseSchedule {
 
     ArrayList<CourseOffer> schedule;
     String semester;
-
+    
     public CourseSchedule(String s, CourseCatalog cc) {
         semester = s;
         coursecatalog = cc;
@@ -27,6 +27,14 @@ public class CourseSchedule {
 
     }
 
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+    
     public ArrayList<CourseOffer> getSchedule() {
         return schedule;
     }
@@ -40,7 +48,7 @@ public class CourseSchedule {
         Course c = coursecatalog.getCourseByNumber(n);
         if(c==null) return null;
         CourseOffer co;
-        co = new CourseOffer(c);
+        co = new CourseOffer(c, this);
         schedule.add(co);
         return co;
     }

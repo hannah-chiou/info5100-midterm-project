@@ -62,6 +62,7 @@ class ConfigureABusiness {
         
 // Create department, course schedules, courses, and seats
         Department department = new Department("MSIS");
+        business.setDepartment(department);
         
         Course c001 = department.newCourse("0001", "INFO5001", 3);
         Course c002 = department.newCourse("0002", "INFO5002", 3);
@@ -84,7 +85,15 @@ class ConfigureABusiness {
         CourseOffer co7 = cs001.newCourseOffer("DAMG5031");
         CourseOffer co8 = cs002.newCourseOffer("DAMG5032");
         CourseOffer co9 = cs002.newCourseOffer("INFO5001");
-
+        
+        department.addCoreCourse(c001);
+        department.addCoreCourse(c002);
+        department.addCoreCourse(c003);
+        department.addCoreCourse(c004);
+        department.addElectiveCourse(c005);
+        department.addElectiveCourse(c006);
+        department.addElectiveCourse(c007);
+        department.addElectiveCourse(c008);
 
         ArrayList<CourseOffer> courseList1 = cs001.getSchedule();
         for(int i = 0; i < courseList1.size(); i++){
@@ -99,6 +108,7 @@ class ConfigureABusiness {
         
         CourseLoad load1 = studentprofile0.newCourseLoad("Fall 2026");
         SeatAssignment sa1 = co1.assignEmptySeat(load1);
+        SeatAssignment sa2 = co2.assignEmptySeat(load1);
         return business;
 
     }
