@@ -6,10 +6,12 @@
 package Business;
 
 import Business.Department.Department;
+import Business.Library.BookDirectory;
 import Business.Person.PersonDirectory;
 import Business.Profiles.EmployeeDirectory;
+import Business.Profiles.LibrarianDirectory;
 import Business.Profiles.StudentDirectory;
-
+import Business.Profiles.LibrarianDirectory;
 import Business.UserAccounts.UserAccountDirectory;
 
 /**
@@ -24,7 +26,8 @@ public class Business {
     UserAccountDirectory useraccountdirectory;
     StudentDirectory studentdirectory;
     Department thisDepartment;
-    
+    BookDirectory bookDirectory;
+    LibrarianDirectory librarianDirectory;
 
 
     public Business(String n) {
@@ -34,7 +37,9 @@ public class Business {
         employeedirectory = new EmployeeDirectory(this);
         useraccountdirectory = new UserAccountDirectory();   
         studentdirectory = new StudentDirectory(thisDepartment);
-
+        
+        bookDirectory = new BookDirectory();
+        librarianDirectory = new LibrarianDirectory();
 
     }
 
@@ -55,4 +60,11 @@ public class Business {
         return studentdirectory;
     }
 
+    public BookDirectory getBookDirectory() {
+    return bookDirectory;
+}
+    
+    public LibrarianDirectory getLibrarianDirectory() {
+    return librarianDirectory;
+}
 }
