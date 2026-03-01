@@ -4,12 +4,44 @@
  */
 package UserInterface.WorkAreas.LibrarianRole;
 
+import Business.Business;
+import Business.Library.Book;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author lajon
  */
 public class AddUpdateBookJPanel extends javax.swing.JPanel {
 
+
+    Business business;
+    JPanel CardSequencePanel;
+    Book selectedBook;
+    ManageBooksJPanel parentPanel;
+
+    public AddUpdateBookJPanel(Business b,
+            JPanel jp,
+            Book book,
+            ManageBooksJPanel parent) {
+
+        this.business = b;
+        this.CardSequencePanel = jp;
+        this.selectedBook = book;
+        this.parentPanel = parent;
+
+        initComponents();
+
+        if (book != null) {
+           txtBookId.setText(book.getBookId());
+            txtBookName.setText(book.getTitle());
+            txtAuthorName.setText(book.getAuthor());
+            txtAvailability.setText(book.isAvailable() ? "Available" : "Issued");
+        }
+    }
     /**
      * Creates new form AddUpdateBookJPanel
      */
@@ -35,6 +67,7 @@ public class AddUpdateBookJPanel extends javax.swing.JPanel {
         txtAuthorName = new javax.swing.JTextField();
         txtAvailability = new javax.swing.JTextField();
         btnBack = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 153, 153));
 
@@ -46,13 +79,43 @@ public class AddUpdateBookJPanel extends javax.swing.JPanel {
 
         lblAvailability.setText("Availability:");
 
+        txtBookId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBookIdActionPerformed(evt);
+            }
+        });
+
         txtBookName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBookNameActionPerformed(evt);
             }
         });
 
+        txtAuthorName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAuthorNameActionPerformed(evt);
+            }
+        });
+
+        txtAvailability.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAvailabilityActionPerformed(evt);
+            }
+        });
+
         btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -75,7 +138,10 @@ public class AddUpdateBookJPanel extends javax.swing.JPanel {
                             .addComponent(txtAvailability, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(btnBack)))
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(251, 251, 251)
+                        .addComponent(btnSave)))
                 .addContainerGap(174, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -99,7 +165,9 @@ public class AddUpdateBookJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAvailability)
                     .addComponent(txtAvailability, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(btnSave)
+                .addContainerGap(164, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -107,9 +175,63 @@ public class AddUpdateBookJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBookNameActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void txtBookIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBookIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBookIdActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        
+String id =txtBookId .getText();
+        String name = txtBookName.getText();
+        String author = txtAuthorName.getText();
+
+        if (id.isEmpty() || name.isEmpty() || author.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields!");
+            return;
+        }
+
+        if (selectedBook == null) {
+
+            business.getBookDirectory().addBook(id, name, author);
+            JOptionPane.showMessageDialog(this, "Book Added Successfully!");
+
+        } else {
+
+            selectedBook.setTitle(name);
+            selectedBook.setAuthor(author);
+            JOptionPane.showMessageDialog(this, "Book Updated Successfully!");
+        }
+
+        CardSequencePanel.remove(this);
+
+        Component[] components = CardSequencePanel.getComponents();
+        for (Component comp : components) {
+            if (comp instanceof ManageBooksJPanel) {
+                ((ManageBooksJPanel) comp).populateTable();
+            }
+        }
+
+        ((CardLayout) CardSequencePanel.getLayout()).previous(CardSequencePanel);
+
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void txtAuthorNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAuthorNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAuthorNameActionPerformed
+
+    private void txtAvailabilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAvailabilityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAvailabilityActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnSave;
     private javax.swing.JLabel lblAuthorName;
     private javax.swing.JLabel lblAvailability;
     private javax.swing.JLabel lblBookId;
