@@ -4,6 +4,12 @@
  */
 package UserInterface.WorkAreas.LibrarianRole;
 
+import Business.Profiles.LibrarianProfile;
+import Business.UserAccounts.UserAccount;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author lajon
@@ -13,9 +19,25 @@ public class LibrarianProfileJPanel extends javax.swing.JPanel {
     /**
      * Creates new form LibrarianProfileJPanel
      */
-    public LibrarianProfileJPanel() {
+  LibrarianProfile librarian;
+    UserAccount userAccount;
+    JPanel CardSequencePanel;
+
+    public LibrarianProfileJPanel(LibrarianProfile lp,
+            UserAccount ua,
+            JPanel jp) {
+
+        this.librarian = lp;
+        this.userAccount = ua;
+        this.CardSequencePanel = jp;
+
         initComponents();
+
+        txtUserName.setText(userAccount.getUsername());
+        txtPassword.setText(userAccount.getPassword());
+        txtNUID.setText(librarian.getPerson().getPersonId());
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -130,10 +152,24 @@ public class LibrarianProfileJPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+           CardSequencePanel.remove(this);
+        ((CardLayout) CardSequencePanel.getLayout()).previous(CardSequencePanel);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnEditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProfileActionPerformed
         // TODO add your handling code here:
+          String newUsername = txtUserName.getText();
+        String newPassword = txtPassword.getText();
+
+        if (newUsername.isEmpty() || newPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Fields cannot be empty!");
+            return;
+        }
+
+        userAccount.setUsername(newUsername);
+        userAccount.setPassword(newPassword);
+
+        JOptionPane.showMessageDialog(this, "Profile Updated Successfully!");  
     }//GEN-LAST:event_btnEditProfileActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed

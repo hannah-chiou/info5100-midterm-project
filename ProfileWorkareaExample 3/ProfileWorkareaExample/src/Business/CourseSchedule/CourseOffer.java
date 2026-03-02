@@ -26,6 +26,12 @@ public class CourseOffer {
         courseSchedule = cs;
         seatlist = new ArrayList();
     }
+    
+    public CourseOffer(Course c){
+        course = c;
+        seatlist = new ArrayList();
+    }
+    
     public CourseSchedule getCourseSchedule() {
         return courseSchedule;
     }
@@ -41,6 +47,10 @@ public class CourseOffer {
 
     public String getCourseNumber() {
         return course.getCOurseNumber();
+    }
+    
+    public void setCourseNumber(String courseNum){
+        this.course.setNumber(courseNum);
     }
 
     public void generatSeats(int n) {
@@ -95,4 +105,8 @@ public class CourseOffer {
         return course.getCredits();
     }
     
+    public ArrayList<Seat> getSeatList(){
+        return seatlist;
+    }
+
 }

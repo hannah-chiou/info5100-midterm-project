@@ -4,18 +4,36 @@
  */
 package UserInterface.WorkAreas.LibrarianRole;
 
+import Business.Library.Book;
+import javax.swing.table.DefaultTableModel;
+import Business.Business;
+import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+
+import java.awt.CardLayout;
 /**
  *
  * @author lajon
  */
 public class ManageBooksJPanel extends javax.swing.JPanel {
 
+    Business business;
+    JPanel CardSequencePanel;
+    ManageBooksJPanel parentPanel;
+
+    public ManageBooksJPanel(Business b, JPanel jp) {
+        this.business = b;
+        this.CardSequencePanel = jp;
+        initComponents();
+        populateTable();
+    }
+
+
     /**
      * Creates new form ManageBooksJPanel
      */
-    public ManageBooksJPanel() {
-        initComponents();
-    }
+ 
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,10 +56,25 @@ public class ManageBooksJPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(0, 153, 153));
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnViewBooks.setText("View Books");
+        btnViewBooks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewBooksActionPerformed(evt);
+            }
+        });
 
         btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         tblBooks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -119,12 +152,130 @@ public class ManageBooksJPanel extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+          AddUpdateBookJPanel panel
+                = new AddUpdateBookJPanel(business,
+                        CardSequencePanel,
+                        null,
+                        this);
+
+        CardSequencePanel.add("AddBook", panel);
+        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+      
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+         int selectedRow = tblBooks.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a book!");
+            return;
+        }
+
+        String bookId = tblBooks.getValueAt(selectedRow, 0).toString();
+
+        Book selectedBook = null;
+
+        for (Book book : business.getBookDirectory().getBookList()) {
+            if (book.getBookId().equals(bookId)) {
+                selectedBook = book;
+                break;
+            }
+        }
+
+        AddUpdateBookJPanel panel
+                = new AddUpdateBookJPanel(business, CardSequencePanel, selectedBook, this);
+
+        CardSequencePanel.add("UpdateBook", panel);
+        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblBooks.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a book!");
+            return;
+        }
+
+        String bookId = tblBooks.getValueAt(selectedRow, 0).toString();
+
+        Book bookToDelete = null;
+
+        for (Book book : business.getBookDirectory().getBookList()) {
+            if (book.getBookId().equals(bookId)) {
+                bookToDelete = book;
+                break;
+            }
+        }
+
+        if (bookToDelete != null) {
+
+            int confirm = JOptionPane.showConfirmDialog(this,
+                    "Are you sure you want to delete?",
+                    "Confirm Delete",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                business.getBookDirectory().getBookList().remove(bookToDelete);
+                JOptionPane.showMessageDialog(this, "Book Deleted Successfully!");
+                populateTable();
+            }
+        }       
+    
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnViewBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewBooksActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblBooks.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a book!");
+            return;
+        }
+
+        String id = tblBooks.getValueAt(selectedRow, 0).toString();
+        String title = tblBooks.getValueAt(selectedRow, 1).toString();
+        String author = tblBooks.getValueAt(selectedRow, 2).toString();
+        String status = tblBooks.getValueAt(selectedRow, 3).toString();
+
+        JOptionPane.showMessageDialog(this,
+                "Book Details:\n\n"
+                + "ID: " + id + "\n"
+                + "Title: " + title + "\n"
+                + "Author: " + author + "\n"
+                + "Status: " + status,
+                "Book Information",
+                JOptionPane.INFORMATION_MESSAGE); 
+    }//GEN-LAST:event_btnViewBooksActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        CardSequencePanel.remove(this);
+        CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+        layout.show(CardSequencePanel, "LibrarianHome"); 
+    }//GEN-LAST:event_btnBackActionPerformed
+        public void populateTable() {
+
+        DefaultTableModel model = (DefaultTableModel) tblBooks.getModel();
+        model.setRowCount(0); // clear table
+
+        for (Book book : business.getBookDirectory().getBookList()) {
+
+            if (!book.isAvailable()) {
+                continue;
+            }
+
+            Object[] row = new Object[4];
+            row[0] = book.getBookId();
+            row[1] = book.getTitle();
+            row[2] = book.getAuthor();
+            row[3] = "Available";
+
+            model.addRow(row);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;

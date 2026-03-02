@@ -32,10 +32,9 @@
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblBookID" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblMemberType" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="lblBookName" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="lblAuthorName" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="lblAvailability" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -46,15 +45,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="txtBookID" min="-2" pref="155" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="btnBookSearch" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="txtNUID" alignment="1" max="32767" attributes="0"/>
-                          <Component id="cmbMemberType" alignment="1" pref="147" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="txtNUID" pref="147" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="345" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -108,16 +102,10 @@
                   <Component id="lblNUID" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtNUID" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="cmbMemberType" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblMemberType" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtBookID" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblBookID" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnBookSearch" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -146,7 +134,7 @@
                   <Component id="btnIssueBook" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnClear" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="46" max="32767" attributes="0"/>
+              <EmptySpace pref="47" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -156,6 +144,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Issue Book"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIssueBookActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnClear">
       <Properties>
@@ -169,26 +160,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;&lt;Back"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="cmbMemberType">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblMemberType">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Member Type:"/>
-      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNUID">
     </Component>
@@ -225,11 +199,6 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtAvailability">
-    </Component>
-    <Component class="javax.swing.JButton" name="btnBookSearch">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Search"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblIssueDate">
       <Properties>

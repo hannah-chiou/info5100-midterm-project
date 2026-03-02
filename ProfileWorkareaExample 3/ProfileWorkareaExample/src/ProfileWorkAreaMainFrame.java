@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import Business.Business;
 
+import Business.Profiles.LibrarianProfile;
+import UserInterface.WorkAreas.LibrarianRole.LibrarianWorkAreaJPanel;
 
 import Business.Business;
 import Business.Profiles.EmployeeProfile;
@@ -88,6 +91,11 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
         jLabel2.setText("Password");
 
         btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutLoginButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout actionsidejpanelLayout = new javax.swing.GroupLayout(actionsidejpanel);
         actionsidejpanel.setLayout(actionsidejpanelLayout);
@@ -95,6 +103,19 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
             actionsidejpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(actionsidejpanelLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
+                .addGroup(actionsidejpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(actionsidejpanelLayout.createSequentialGroup()
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))
+                    .addGroup(actionsidejpanelLayout.createSequentialGroup()
+                        .addGroup(actionsidejpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(UserNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(PasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(60, 60, 60))))
                 .addGroup(actionsidejpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnLogout)
                     .addComponent(jLabel1)
@@ -114,6 +135,11 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(PasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(actionsidejpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(381, 381, 381))
                 .addGap(16, 16, 16)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -158,7 +184,7 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
 
         if (profile instanceof EmployeeProfile) {
 
-            adminworkarea = new AdminRoleWorkAreaJPanel(business, CardSequencePanel,useraccount);
+            adminworkarea = new AdminRoleWorkAreaJPanel(business, CardSequencePanel, useraccount);
             CardSequencePanel.removeAll();
             CardSequencePanel.add("Admin", adminworkarea);
             ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
@@ -173,6 +199,18 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
             CardSequencePanel.add("student", studentworkareajpanel);
             ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
+        }
+
+        if (profile instanceof LibrarianProfile) {
+
+            LibrarianProfile lp = (LibrarianProfile) profile;
+
+            LibrarianWorkAreaJPanel librarianWorkArea
+                    = new LibrarianWorkAreaJPanel(business, lp, useraccount, CardSequencePanel);
+
+            CardSequencePanel.removeAll();
+            CardSequencePanel.add("Librarian", librarianWorkArea);
+            ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
         }
 
         if (profile instanceof FacultyProfile) {
@@ -191,13 +229,31 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
             CardSequencePanel.repaint();
 
         }
-
+    }
 
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     private void PasswordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PasswordTextFieldActionPerformed
+
+    private void btnLogoutLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutLoginButtonActionPerformed
+        // TODO add your handling code here:
+        
+    // Remove all panels from right side
+    CardSequencePanel.removeAll();
+
+    // Add back the default home label
+    CardSequencePanel.add(jLabel3, "Home");
+
+    // Show first card (login screen view)
+    ((java.awt.CardLayout) CardSequencePanel.getLayout()).first(CardSequencePanel);
+
+    // Clear login fields
+    UserNameTextField.setText("");
+    PasswordTextField.setText("");
+    
+    }//GEN-LAST:event_btnLogoutLoginButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,16 +269,28 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProfileWorkAreaMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProfileWorkAreaMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProfileWorkAreaMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProfileWorkAreaMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProfileWorkAreaMainFrame.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ProfileWorkAreaMainFrame.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ProfileWorkAreaMainFrame.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ProfileWorkAreaMainFrame.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

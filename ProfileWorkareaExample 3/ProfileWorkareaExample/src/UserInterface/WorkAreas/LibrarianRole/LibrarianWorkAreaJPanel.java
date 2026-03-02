@@ -4,6 +4,12 @@
  */
 package UserInterface.WorkAreas.LibrarianRole;
 
+import Business.Business;
+import Business.Profiles.LibrarianProfile;
+import Business.UserAccounts.UserAccount;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author lajon
@@ -13,7 +19,21 @@ public class LibrarianWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form LibrarianWorkAreaJPanel
      */
-    public LibrarianWorkAreaJPanel() {
+     Business business;
+    LibrarianProfile librarian;
+    UserAccount userAccount;
+    JPanel CardSequencePanel;
+
+    public LibrarianWorkAreaJPanel(Business b,
+            LibrarianProfile lp,
+            UserAccount ua,
+            JPanel clp) {
+
+        this.business = b;
+        this.librarian = lp;
+        this.userAccount = ua;
+        this.CardSequencePanel = clp;
+
         initComponents();
     }
 
@@ -26,60 +46,56 @@ public class LibrarianWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnManageBooks = new javax.swing.JButton();
+        btnIssueBook = new javax.swing.JButton();
+        btnReturnBook = new javax.swing.JButton();
+        btnMyProfile = new javax.swing.JButton();
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 255));
-        jButton1.setText("Manage Books");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnManageBooks.setBackground(new java.awt.Color(0, 153, 255));
+        btnManageBooks.setText("Manage Books");
+        btnManageBooks.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnManageBooksActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(51, 153, 255));
-        jButton2.setText("Issue Book");
-
-        jButton3.setBackground(new java.awt.Color(0, 153, 255));
-        jButton3.setText("Return Book");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnIssueBook.setBackground(new java.awt.Color(51, 153, 255));
+        btnIssueBook.setText("Issue Book");
+        btnIssueBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnIssueBookActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(51, 153, 255));
-        jButton4.setText("View Issued Books");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnReturnBook.setBackground(new java.awt.Color(0, 153, 255));
+        btnReturnBook.setText("Return Book");
+        btnReturnBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnReturnBookActionPerformed(evt);
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(0, 153, 255));
-        jButton5.setText("My Profile");
+        btnMyProfile.setBackground(new java.awt.Color(0, 153, 255));
+        btnMyProfile.setText("My Profile");
+        btnMyProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMyProfileActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(134, 134, 134)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(220, 220, 220)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(104, 104, 104)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnManageBooks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReturnBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(134, 134, 134)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnIssueBook, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                    .addComponent(btnMyProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(661, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -87,36 +103,61 @@ public class LibrarianWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(88, 88, 88)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnManageBooks, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIssueBook, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(72, 72, 72)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(147, Short.MAX_VALUE))
+                    .addComponent(btnReturnBook, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMyProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnManageBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageBooksActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+         ManageBooksJPanel panel= new ManageBooksJPanel(business, CardSequencePanel);
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        CardSequencePanel.add("ManageBooks", panel);
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+        layout.show(CardSequencePanel, "ManageBooks");
+    }//GEN-LAST:event_btnManageBooksActionPerformed
+
+    private void btnReturnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnBookActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+         ReturnBookJPanel panel = new ReturnBookJPanel(business, CardSequencePanel);
+
+        CardSequencePanel.add("ReturnBook", panel);
+
+        CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+        layout.show(CardSequencePanel, "ReturnBook");    
+    }//GEN-LAST:event_btnReturnBookActionPerformed
+
+    private void btnMyProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyProfileActionPerformed
+        // TODO add your handling code here:
+      LibrarianProfileJPanel panel = new LibrarianProfileJPanel(librarian, userAccount, CardSequencePanel);
+
+        CardSequencePanel.add("LibrarianProfile", panel);
+
+        CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+        layout.show(CardSequencePanel, "LibrarianProfile");   
+    }//GEN-LAST:event_btnMyProfileActionPerformed
+
+    private void btnIssueBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIssueBookActionPerformed
+        // TODO add your handling code here:
+        IssueBookJPanel panel= new IssueBookJPanel(business, CardSequencePanel);
+
+        CardSequencePanel.add("IssueBook", panel);
+
+        CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+        layout.show(CardSequencePanel, "IssueBook"); 
+    }//GEN-LAST:event_btnIssueBookActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnIssueBook;
+    private javax.swing.JButton btnManageBooks;
+    private javax.swing.JButton btnMyProfile;
+    private javax.swing.JButton btnReturnBook;
     // End of variables declaration//GEN-END:variables
 }

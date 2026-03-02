@@ -13,6 +13,9 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Container;
 
 /**
  *
@@ -22,6 +25,7 @@ public class ManageCoursesJPanel extends javax.swing.JPanel {
 
     private JTable tblCourses;
     private DefaultTableModel tableModel;
+    private JPanel userProcessContainer;
 
     // current logged-in faculty member
     private FacultyProfile currentFaculty;
@@ -29,14 +33,14 @@ public class ManageCoursesJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManageCoursesJPanel
      */
-    public ManageCoursesJPanel(FacultyProfile faculty) {
+    public ManageCoursesJPanel(JPanel userProcessContainer, FacultyProfile faculty) {
+        this.userProcessContainer = userProcessContainer;
         this.currentFaculty = faculty;
         initComponents();
-        
+
         tableModel = (DefaultTableModel) tblCourse.getModel();
 
-
-        generateCourses();
+        //generateCourses();
         refreshCourseTable();
     }
 
@@ -98,6 +102,11 @@ public class ManageCoursesJPanel extends javax.swing.JPanel {
         });
 
         btnBack.setText("<< Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -137,10 +146,6 @@ public class ManageCoursesJPanel extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
         int selectedRow = tblCourse.getSelectedRow();
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(this, "Select a course to delete");
@@ -154,7 +159,35 @@ public class ManageCoursesJPanel extends javax.swing.JPanel {
             refreshCourseTable();
             JOptionPane.showMessageDialog(this, "Course removed successfully");
         }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        
+        int selectedRow = tblCourse.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Select a course to update");
+            return;
+        }
+        
+        int modelRow = tblCourse.convertRowIndexToModel(selectedRow);
+        
+        FacultyAssignment assignment = currentFaculty.getFacultyassignments().get(modelRow);
+        UpdateCoursesJPanel panel = new UpdateCoursesJPanel(userProcessContainer, assignment);
+        userProcessContainer.add("UpdateCourse", panel);
+        ((CardLayout) userProcessContainer.getLayout()).next(userProcessContainer);
+
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        Container parent = this.getParent(); // fallback if container wasn't passed
+        JPanel container = (userProcessContainer != null) ? userProcessContainer : (JPanel) parent;
+
+        container.remove(this);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.previous(container);
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -178,17 +211,17 @@ currentFaculty.AssignAsTeacher(co2);
 
     }
 
-    private void refreshCourseTable() {
-tableModel.setRowCount(0);
+    public void refreshCourseTable() {
+        tableModel.setRowCount(0);
 
         for (FacultyAssignment fa : currentFaculty.getFacultyassignments()) {
             CourseOffer co = fa.getCourseoffer();
             if (co != null && co.getSubjectCourse() != null) {
                 Course c = co.getSubjectCourse();
                 tableModel.addRow(new Object[]{
-                        c.getName(),
-                        c.getNumber(),
-                        c.getCredits()
+                    c.getName(),
+                    c.getNumber(),
+                    c.getCredits()
                 });
             }
         }

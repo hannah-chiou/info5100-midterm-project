@@ -4,36 +4,35 @@
  */
 package UserInterface.WorkAreas.FacultyRole;
 
-import Business.Business;
 import Business.Profiles.Faculty.FacultyProfile;
 import Business.UserAccounts.UserAccount;
 import java.awt.CardLayout;
-import java.awt.Container;
+import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
  *
  * @author hannahchiou
  */
-public class ManageFacultyProfileJPanel extends javax.swing.JPanel {
+public class UpdateFacultyProfileJPanel extends javax.swing.JPanel {
     
      private JPanel userProcessContainer;
-    private Business business;
-    private FacultyProfile facultyProfile;
-    private UserAccount facultyAccount;
+    private FacultyProfile currentFaculty;
+    private UserAccount currentAccount;
 
     /**
-     * Creates new form ManageFacultyProfileJPanel
+     * Creates new form UpdateFacultyProfileJPanel
      */
-    public ManageFacultyProfileJPanel(JPanel userProcessContainer, Business business, FacultyProfile facultyProfile) {
-        initComponents();
+    public UpdateFacultyProfileJPanel(JPanel userProcessContainer,FacultyProfile faculty, UserAccount account) {
         
         this.userProcessContainer = userProcessContainer;
-        this.business = business;
-        this.facultyProfile = facultyProfile;
-
-        loadFacultyProfileData();
+        this.currentFaculty = faculty;
+        this.currentAccount = account;
         
+        initComponents();
+        
+        loadData();
         setFieldsReadOnly();
     }
 
@@ -46,20 +45,17 @@ public class ManageFacultyProfileJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblTitle = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
+        lblTitle = new javax.swing.JLabel();
         lblUsername = new javax.swing.JLabel();
-        lblPassword = new javax.swing.JLabel();
-        lblRating = new javax.swing.JLabel();
-        lblRole = new javax.swing.JLabel();
-        txtPassword = new javax.swing.JTextField();
         txtUsername = new javax.swing.JTextField();
-        txtRating = new javax.swing.JTextField();
+        lblPassword = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JTextField();
+        lblRole = new javax.swing.JLabel();
         txtRole = new javax.swing.JTextField();
+        lblRating = new javax.swing.JLabel();
+        txtRating = new javax.swing.JTextField();
         btnUpdate = new javax.swing.JButton();
-
-        lblTitle.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        lblTitle.setText("Faculty Profile");
 
         btnBack.setText("<< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -68,13 +64,12 @@ public class ManageFacultyProfileJPanel extends javax.swing.JPanel {
             }
         });
 
+        lblTitle.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        lblTitle.setText("Update Faculty Profile");
+
         lblUsername.setText("Username");
 
         lblPassword.setText("Password");
-
-        lblRating.setText("Average Rating");
-
-        lblRole.setText("Role");
 
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,7 +77,11 @@ public class ManageFacultyProfileJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnUpdate.setText("Update Profile");
+        lblRole.setText("Role");
+
+        lblRating.setText("Average Rating");
+
+        btnUpdate.setText("Save Profile Information");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
@@ -94,7 +93,7 @@ public class ManageFacultyProfileJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addContainerGap(41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnBack)
                     .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -115,8 +114,7 @@ public class ManageFacultyProfileJPanel extends javax.swing.JPanel {
                                 .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                                 .addComponent(txtPassword)
                                 .addComponent(txtRating)
-                                .addComponent(txtRole)))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                                .addComponent(txtRole))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,17 +141,24 @@ public class ManageFacultyProfileJPanel extends javax.swing.JPanel {
                     .addComponent(lblRating, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(28, 28, 28)
                 .addComponent(btnUpdate)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        Container parent = this.getParent();
-    JPanel container = (JPanel) userProcessContainer;   // or your stored userProcessContainer
-    container.remove(this);
-    CardLayout layout = (CardLayout) container.getLayout();
-    layout.previous(container);
+        userProcessContainer.remove(this);
+
+        Component[] comps = userProcessContainer.getComponents();
+        if (comps.length > 0) {
+            Component prev = comps[comps.length - 1];
+            if (prev instanceof ManageFacultyProfileJPanel) {
+                ((ManageFacultyProfileJPanel) prev).loadFacultyProfileData();
+            }
+        }
+
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
@@ -162,16 +167,25 @@ public class ManageFacultyProfileJPanel extends javax.swing.JPanel {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        
-        UpdateFacultyProfileJPanel updatePanel =
-            new UpdateFacultyProfileJPanel(userProcessContainer, facultyProfile, facultyAccount);
+        String newUsername = txtUsername.getText().trim();
+        String newPassword = txtPassword.getText().trim();
 
-    userProcessContainer.add("UpdateFacultyProfileJPanel", updatePanel);
-    CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-    layout.next(userProcessContainer);
+        if (newUsername.isEmpty() || newPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username and password are required.");
+            return;
+        }
+
+        // update username + password only
+        currentAccount.setUsername(newUsername);
+        currentAccount.setPassword(newPassword);
+
+        JOptionPane.showMessageDialog(this, "Profile updated successfully.");
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-
+    private void setFieldsReadOnly() {
+        txtRole.setEditable(false);
+        txtRating.setEditable(false);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnUpdate;
@@ -186,40 +200,10 @@ public class ManageFacultyProfileJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 
-    public void loadFacultyProfileData() {
-if (facultyProfile == null || facultyProfile.getPerson() == null) {
-            txtUsername.setText("");
-            txtPassword.setText("");
-            txtRole.setText("Faculty");
-            txtRating.setText("N/A");
-            return;
-        }
-
-        String personId = facultyProfile.getPerson().getPersonId();
-        facultyAccount = business.getUserAccountDirectory().findUserAccount(personId);
-
-        if (facultyAccount != null) {
-            txtUsername.setText(facultyAccount.getUserLoginName());
-            txtPassword.setText(facultyAccount.getPassword());
-            txtRole.setText(facultyAccount.getRole()); // usually "Faculty"
-        } else {
-            txtUsername.setText("");
-            txtPassword.setText("");
-            txtRole.setText(facultyProfile.getRole());
-        }
-
-        // Guard against NaN/Infinity if no assignments yet
-        double avg = facultyProfile.getProfAverageOverallRating();
-        if (Double.isNaN(avg) || Double.isInfinite(avg)) {
-            txtRating.setText("0.00");
-        } else {
-            txtRating.setText(String.format("%.2f", avg));
-        }    }
-
-    private void setFieldsReadOnly() {
-        txtUsername.setEditable(false);
-        txtPassword.setEditable(false);
-        txtRole.setEditable(false);
-        txtRating.setEditable(false);
+    private void loadData() {
+        txtUsername.setText(currentAccount.getUserLoginName());
+        txtPassword.setText(currentAccount.getPassword());
+        txtRole.setText(currentFaculty.getRole());
+        txtRating.setText(String.valueOf(currentFaculty.getProfAverageOverallRating()));
     }
 }

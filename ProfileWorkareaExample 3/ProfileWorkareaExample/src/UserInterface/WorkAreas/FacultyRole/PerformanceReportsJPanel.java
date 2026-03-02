@@ -4,17 +4,53 @@
  */
 package UserInterface.WorkAreas.FacultyRole;
 
+import Business.Business;
+import Business.Course.Course;
+import Business.CourseSchedule.CourseLoad;
+import Business.CourseSchedule.CourseOffer;
+import Business.CourseSchedule.Seat;
+import Business.CourseSchedule.SeatAssignment;
+import Business.Person.Person;
+import Business.Profiles.Faculty.FacultyAssignment;
+import Business.Profiles.Faculty.FacultyProfile;
+import Business.Profiles.StudentProfile;
+import java.awt.CardLayout;
+import java.awt.Container;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author hannahchiou
  */
 public class PerformanceReportsJPanel extends javax.swing.JPanel {
 
+    private JPanel userProcessContainer;
+    private Business business;
+    private FacultyProfile currentFaculty;
+    private DefaultTableModel model;
+
+    private ArrayList<StudentProfile> demoStudents = new ArrayList<>();
+
     /**
      * Creates new form PerformanceReportsJPanel
      */
-    public PerformanceReportsJPanel() {
+    public PerformanceReportsJPanel(JPanel userProcessContainer, Business business, FacultyProfile faculty) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.business = business;
+        this.currentFaculty = faculty;
+
+        model = (DefaultTableModel) jTable1.getModel();
+        
+        demoStudents();
+
+        populatePerformanceTable();
+        
+
     }
 
     /**
@@ -27,9 +63,32 @@ public class PerformanceReportsJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         lblTitle = new javax.swing.JLabel();
+        btnBack3 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         lblTitle.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        lblTitle.setText("Generate Performance Reports");
+        lblTitle.setText("Student Performance Reports");
+
+        btnBack3.setText("<< Back");
+        btnBack3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBack3ActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Course ID", "Course Name", "Student ID", "Credits", "Grade", "Letter"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -37,20 +96,138 @@ public class PerformanceReportsJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(47, 47, 47)
-                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBack3)
+                    .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(24, 24, 24)
+                .addComponent(btnBack3)
+                .addGap(18, 18, 18)
                 .addComponent(lblTitle)
-                .addContainerGap(362, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(97, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBack3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack3ActionPerformed
+        // TODO add your handling code here:
+        Container parent = this.getParent(); // fallback if container wasn't passed
+
+        JPanel container = (userProcessContainer != null) ? userProcessContainer : (JPanel) parent;
+
+        container.remove(this);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.previous(container);
+    }//GEN-LAST:event_btnBack3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnBack3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblTitle;
     // End of variables declaration//GEN-END:variables
+
+    private void populatePerformanceTable() {
+
+        model.setRowCount(0);
+
+        // faculty course IDs for filtering
+        Set<String> facultyCourseIds = new HashSet<>();
+        for (FacultyAssignment fa : currentFaculty.getFacultyassignments()) {
+            CourseOffer co = fa.getCourseoffer();
+            if (co != null && co.getSubjectCourse() != null) {
+                facultyCourseIds.add(co.getSubjectCourse().getCOurseNumber());
+            }
+        }
+
+        for (StudentProfile sp : demoStudents) {
+            for (SeatAssignment sa : sp.getCourseList()) {
+                Course c = sa.getAssociatedCourse();
+                if (c == null) continue;
+                if (!facultyCourseIds.contains(c.getCOurseNumber())) continue;
+
+                // With current model (no grade getter), derive numeric grade from score/credits
+                float grade = 0f;
+                if (sa.getCreditHours() > 0) {
+                    grade = sa.GetCourseStudentScore() / sa.getCreditHours();
+                }
+                
+                String letter = grade >= 3.7 ? "A" : grade >= 3.3 ? "B+" : grade >= 3.0 ? "B" : "C";
+
+                model.addRow(new Object[]{
+                    c.getCOurseNumber(),                 // Course ID
+                    c.getName(),                   // Course Name
+                    sp.getPerson().getPersonId(),  // Student ID
+                    c.getCredits(),                // Credits
+                    grade,                         // Grade
+                    letter                         // Letter grade
+                });
+            }
+        }
+    
+
+    }
+
+    private void demoStudents() {
+                if (!demoStudents.isEmpty()) return;
+
+    ArrayList<FacultyAssignment> fas = currentFaculty.getFacultyassignments();
+    if (fas == null || fas.isEmpty()) {
+        System.out.println("No faculty assignments found.");
+        return;
+    }
+
+    StudentProfile s1 = new StudentProfile(new Person("stu001"));
+    StudentProfile s2 = new StudentProfile(new Person("stu002"));
+    StudentProfile s3 = new StudentProfile(new Person("stu003"));
+
+    CourseLoad cl1 = s1.newCourseLoad("Fall 2026");
+    CourseLoad cl2 = s2.newCourseLoad("Fall 2026");
+    CourseLoad cl3 = s3.newCourseLoad("Fall 2026");
+
+    CourseOffer co1 = fas.get(0).getCourseoffer();
+    if (co1 != null) {
+        // create seats before assigning
+        co1.generatSeats(20);   
+        SeatAssignment sa11 = co1.assignEmptySeat(cl1);
+        SeatAssignment sa21 = co1.assignEmptySeat(cl2);
+
+        System.out.println("co1 seat assign: " + (sa11 != null) + ", " + (sa21 != null));
+
+        if (sa11 != null) sa11.setGrade(3.7f);
+        if (sa21 != null) sa21.setGrade(3.3f);
+    }
+
+    if (fas.size() > 1) {
+        CourseOffer co2 = fas.get(1).getCourseoffer();
+        if (co2 != null) {
+            co2.generatSeats(20);
+            SeatAssignment sa12 = co2.assignEmptySeat(cl1);
+            SeatAssignment sa32 = co2.assignEmptySeat(cl3);
+
+            System.out.println("co2 seat assign: " + (sa12 != null) + ", " + (sa32 != null));
+
+            if (sa12 != null) sa12.setGrade(3.0f);
+            if (sa32 != null) sa32.setGrade(3.8f);
+        }
+    }
+
+    demoStudents.add(s1);
+    demoStudents.add(s2);
+    demoStudents.add(s3);
+    }
+
+    public ArrayList<StudentProfile> getDemoStudents() {
+        return demoStudents;
+    }
+    
+    
 }
