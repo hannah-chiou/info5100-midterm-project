@@ -69,7 +69,9 @@ The librarian is authorized to access only the Librarian Work Area. Librarians c
 - View student performance in current courses, including student’s ID, current course(s) taught by faculty that student is enrolled in, course credits, and grade.
 - Maintain and update personal login credentials.
 
-### Usage InstructionsStudent Role Example
+### Usage Instructions
+
+**Student Role Example**
 
 - Utilize the student credentials (User: adam, PW: ****) and login will take you to the Student Work Area where you can manage course work, register/drop classes, perform a graduation audit, and view transcript of academic history
 - Manage course work: Immediately viewable is the student’s course load/seat assignments along with their current grade to track progress. You can select a course and click the next button to access the course to upload and save files for assignments
@@ -77,7 +79,7 @@ The librarian is authorized to access only the Librarian Work Area. Librarians c
 -	Graduation audit: courses that are labeled as core are in view with either the student’s grade or that it is not taken as well as a text field identifying what fraction of core courses have been taken. Elective courses are labeled as elective and are only in view if they have been taken. A counter of how many electives have been taken is updated appropriately.
 -	Transcript is viewable has all courses taken in view as well as the semester they were taken. Total credits earned is calculated and viewable based on the credit hours of a course multiplied by the grade. Similar calculation is done for GPA
 
-Admin Role Example
+**Admin Role Example**
 
 - Utilize the admin credentials (Username: admin, PW:****) and login to take you to the Administrator Work Area where you can manage User Accounts, Register Persons, Manage Faculty/Students/Employees, and manage your own profile.
 - Manage User Accounts: Provides a comprehensive view of all user accounts in the system, including username, role, last accessed date, and last updated date.
@@ -96,7 +98,7 @@ Admin Role Example
     -   View Employee: Displays the details of a selected Employee account, such as login credentials, and allows you to edit or update them. Like Delete, this action requires a row to be selected
 -	My Profile: Provides access to your personal profile, allowing you to view and update your login credentials as needed.
 
-Faculty Role Example
+**Faculty Role Example**
 
 -	First, login using provided faculty account (username: faculty, password: ****10) to view the Faculty Profile main page, which has buttons directing user to all functionalities of a faculty. 
 -	Manage course information: Allows a user to view information about the courses they currently teach and manage them as needed.
@@ -107,14 +109,26 @@ Faculty Role Example
 -	View information about students enrolled in courses: A Faculty user can view general information about the students enrolled in their courses, including the total number of credits and the student’s average grade so far, their hobbies / interests, and their transcript score.
 -	View current academic performance for students enrolled in courses: A Faculty user can track how all students across all their courses are doing so far, by seeing their grades and letter grades in the courses the students are taking. 
 
-
-
 ### Testing Guide
-Outline how to test the system, including sample test cases.
-Explain how to verify that authentication and authorization work correctly.
+**Admin login**
+Username: admin
+Password: ****
+
+**Faculty login**
+Username: faculty
+Password: ****10
+
+**Librarian login**
+Username: librarian
+Password:1234
+
+**Student login**
+Username: adam
+Password: ****
+
 
 ### Challenges & Solutions
-•	Because we were working on individual branches, sometimes errors were not clear until we worked off of the main branch. 
+- Because we were working on individual branches, sometimes errors were not clear until we worked off of the main branch. 
   - *Solution:* Communicate with other team members to find where the error(s) were.
 - For some members, Git / GitHub was a new resource so learning how to resolve merge conflicts, use a new interface, learn what Git actually does, etc.
   - *Solution:* Independent research and communicating with team members. More experienced members would also try to show other members how to use these tools.
@@ -122,6 +136,8 @@ Explain how to verify that authentication and authorization work correctly.
   - *Solution:* Using merge conflict to resolve any differences and having open communication with other members so everyone was aware of what was being changed. 
 
 ### Future Enhancements
+**Student Use Case**
+
 **Librarian Use Case**
 -	When searching using the Book ID, details about the book and information about who has borrowed it can be made visible.
 -	When a book is issued, it can be made visible in the Faculty and Student work areas through a “Library” button.
