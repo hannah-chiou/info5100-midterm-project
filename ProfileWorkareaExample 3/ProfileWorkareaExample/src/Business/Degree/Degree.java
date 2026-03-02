@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class Degree {
 
     String title;
-    ArrayList<Course> corelist;
+    public ArrayList<Course> corelist;
     ArrayList<Course> electives;
 
     public Degree(String name) {
@@ -38,22 +38,32 @@ public class Degree {
 
     public boolean isStudentReadyToGraduate(StudentProfile sp) {
 
-        //Extract transcript from studentprofile
-        //Extract the list of courses taken so far from the student transcript
-        //For each core course in the core list of the degree do the following:
-        //Check if the core class at hand is in the transcrip
-        //Repeat this check for the electives as well
-        ArrayList sas = sp.getCourseList(); //seatAssignments extracted from course loads
+        ArrayList<SeatAssignment> sas = sp.getCourseList(); //seatAssignments extracted from course loads
 
+        // Check if all core classes are satisfied
         if (validateCoreClasses(sas) == false) {
             return false;
-        }//core classes satisfied
-
-        //Do the electives check in case some taken classes are not part of the electives
-      
-        //Check for the total number of credit hours that it is above 32
-
-        else return true; //student has at least 32 credit hours per NEU requirements
+        }
+    
+        // Calculate total credit hours
+        int totalCredits = 0;
+        for (SeatAssignment sa : sas) {
+            totalCredits += sa.getCreditHours();
+        }
+    
+        // Check if total credits meet minimum requirement (32)
+        if (totalCredits < 32) {
+            return false;
+        }
+    
+        // Check electives - student must have at least 4 elective courses (or whatever your requirement is)
+        int electiveCount = getTotalElectiveCoursesTaken(sas);
+        if (electiveCount < 4) { // Adjust this number based on your program requirements
+            return false;
+        }
+    
+        // All requirements satisfied
+        return true;
 
     }
 

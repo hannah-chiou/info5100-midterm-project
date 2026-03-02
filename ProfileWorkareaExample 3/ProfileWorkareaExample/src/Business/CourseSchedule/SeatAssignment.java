@@ -6,6 +6,8 @@
 package Business.CourseSchedule;
 
 import Business.Course.Course;
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,14 +15,25 @@ import Business.Course.Course;
  */
 public class SeatAssignment {
 
-    float grade; //(Letter grade mappings: A=4.0, A-=3.7, B+=3.3, B=3.0, )
+    public SeatAssignment(CourseLoad cl, Seat s) {
+    public float grade; //(Letter grade mappings: A=4.0, A-=3.7, B+=3.3, B=3.0, )
     Seat seat;
     boolean like; //true means like and false means not like
     CourseLoad courseload;
+    private ArrayList<File> submittedAssignments;
+    
+    public void submitAssignment(File file) {
+        submittedAssignments.add(file);
+    }
 
-    public SeatAssignment(CourseLoad cl, Seat s) {
+    public ArrayList<File> getSubmittedAssignments() {
+        return submittedAssignments;
+    }
+    
+    public SeatAssignment(CourseLoad cl, Seat s){
         seat = s;
         courseload = cl;
+        submittedAssignments = new ArrayList<>();
     }
 
     public boolean getLike() {
@@ -66,4 +79,11 @@ public class SeatAssignment {
         return courseload;
     }
 
+    
+    @Override
+    public String toString() {
+    // Display the grade instead of the object reference
+    return String.valueOf(grade);
+    }
+    
 }

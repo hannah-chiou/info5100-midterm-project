@@ -1,13 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+/**
+ *
+ * @author Kenneth Garcia NUID 003166112
  */
 package UserInterface.WorkAreas.StudentRole;
 
 import Business.CourseSchedule.CourseLoad;
+import Business.CourseSchedule.CourseOffer;
+import Business.CourseSchedule.CourseSchedule;
 import Business.CourseSchedule.SeatAssignment;
+import Business.Department.Department;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -17,7 +22,7 @@ public class StudentRegistrationJPanel extends javax.swing.JPanel {
     JPanel CardSequencePanel;
     CourseLoad courseLoad;
     SeatAssignment selectedSeatAssignment;
-
+    Department department;
     /**
      * Creates new form StudentRegistrationJPanel
      */
@@ -39,10 +44,21 @@ public class StudentRegistrationJPanel extends javax.swing.JPanel {
         }
         
         for (SeatAssignment sa : cl.getSeatAssignments()) {
-            Object[] row = new Object[1];
-            row[0] = cl;
-
+            String course = sa.getCourseOffer().getCourseNumber();
+            
+            Object[] row = new Object[5];
+            row[0] = course;
+            row[1] = sa.getAssociatedCourse().getName();
+            row[2] = sa.getCreditHours();
+            row[3] = sa.getAssociatedCourse().getCoursePrice();
+            row[4] = sa; 
             ((DefaultTableModel) tblCourseLoad.getModel()).addRow(row);
+        }
+        TableColumnModel columnModel = tblCourseLoad.getColumnModel();
+        if (columnModel.getColumnCount() > 4) {
+            columnModel.getColumn(4).setMinWidth(0);
+            columnModel.getColumn(4).setMaxWidth(0);
+            columnModel.getColumn(4).setWidth(0);
         }
     }
 
@@ -58,34 +74,48 @@ public class StudentRegistrationJPanel extends javax.swing.JPanel {
         lblTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCourseLoad = new javax.swing.JTable();
-        txtSemester = new javax.swing.JTextField();
         btnDrop = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         btnBack1 = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(153, 153, 255));
 
         lblTitle.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         lblTitle.setText("Registration");
 
         tblCourseLoad.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Course Number", "Course Name", "Credits", "Price"
+                "Course Name", "Course Number", "Credits", "Price", "Seat Assignment"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblCourseLoad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tblCourseLoadMousePressed(evt);
             }
         });
         jScrollPane1.setViewportView(tblCourseLoad);
-
-        txtSemester.setText("Semester");
 
         btnDrop.setText("Drop");
         btnDrop.addActionListener(new java.awt.event.ActionListener() {
@@ -101,7 +131,7 @@ public class StudentRegistrationJPanel extends javax.swing.JPanel {
             }
         });
 
-        jTextField1.setText("Input Course Offering");
+        jTextField1.setText("Input Course Name");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -137,19 +167,13 @@ public class StudentRegistrationJPanel extends javax.swing.JPanel {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(51, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(txtSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(lblTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(txtSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,23 +197,48 @@ public class StudentRegistrationJPanel extends javax.swing.JPanel {
         if (selectedrow < 0 || selectedrow > size - 1) {
             return;
         }
-        selectedSeatAssignment = (SeatAssignment) tblCourseLoad.getValueAt(selectedrow, 0);
+        selectedSeatAssignment = (SeatAssignment) tblCourseLoad.getValueAt(selectedrow, 4);
         if (selectedSeatAssignment == null) {
             return;
         }
+        
     }//GEN-LAST:event_tblCourseLoadMousePressed
 
     private void btnDropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDropActionPerformed
         // TODO add your handling code here:
-
+        int selectedRow = tblCourseLoad.getSelectedRow();
+        if (selectedRow >= 0) {
+            String courseNumber = (String) tblCourseLoad.getValueAt(selectedRow, 0);
+            SeatAssignment toRemove = null;
+            for (SeatAssignment sa : courseLoad.getSeatAssignments()) {
+                if (sa.getCourseOffer().getCourseNumber().equals(courseNumber)) {
+                    toRemove = sa;
+                    break;
+                }
+            }
+            if (toRemove != null) {
+                courseLoad.getSeatAssignments().remove(toRemove);
+                refreshTable(courseLoad);
+            }
+        }
     }//GEN-LAST:event_btnDropActionPerformed
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAddActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
+        String courseNumber = jTextField1.getText().trim();
+        if (department != null) {
+            CourseSchedule schedule = department.getCourseSchedule(courseLoad.getSemester());
+            if (schedule != null) {
+                CourseOffer offer = schedule.getCourseOfferByNumber(courseNumber);
+                if (offer != null) {
+                    SeatAssignment sa = offer.assignEmptySeat(courseLoad);
+                    if (sa != null) {
+                        refreshTable(courseLoad);
+                        jTextField1.setText("");
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btnBack1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack1ActionPerformed
@@ -199,6 +248,18 @@ public class StudentRegistrationJPanel extends javax.swing.JPanel {
         //       ((java.awt.CardLayout)CardSequencePanel.getLayout()).show(CardSequencePanel, "IdentifyEventTypes");
     }//GEN-LAST:event_btnBack1ActionPerformed
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        String courseNumber = jTextField1.getText().trim();
+        CourseSchedule schedule = courseLoad.getSeatAssignments().get(0).getCourseOffer().getCourseSchedule();
+        CourseOffer offer = schedule.getCourseOfferByNumber(courseNumber);
+        if (offer != null) {
+            offer.assignEmptySeat(courseLoad);
+            refreshTable(courseLoad);
+            jTextField1.setText("");
+        } else {
+            jTextField1.setText("");
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -208,6 +269,5 @@ public class StudentRegistrationJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTable tblCourseLoad;
-    private javax.swing.JTextField txtSemester;
     // End of variables declaration//GEN-END:variables
 }

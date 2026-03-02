@@ -9,6 +9,7 @@ import Business.Course.Course;
 import Business.Profiles.*;
 import Business.CourseSchedule.CourseOffer;
 import Business.Person.Person;
+import Business.UserAccounts.UserAccount;
 import java.util.ArrayList;
 
 /**
@@ -19,6 +20,7 @@ public class FacultyProfile extends Profile {
 
     Person person;
     ArrayList<FacultyAssignment> facultyassignments;
+    private UserAccount ua;
 
     public FacultyProfile(Person p) {
         super(p);
@@ -86,6 +88,11 @@ public class FacultyProfile extends Profile {
      public void setFacultyassignments(ArrayList<Course> sampleCourses) {
       this.facultyassignments = facultyassignments;
     }
+     
+     public void setUserAccount(UserAccount ua) {
+        this.ua = ua;
+    }
+
 
     @Override
     public String getRole() {
