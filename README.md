@@ -135,6 +135,7 @@ Password: ****
 -	Some overlap with classes or features that other team members had already created
   - *Solution:* Using merge conflict to resolve any differences and having open communication with other members so everyone was aware of what was being changed. 
 
+
 ### Future Enhancements
 **Student Use Case**
 
