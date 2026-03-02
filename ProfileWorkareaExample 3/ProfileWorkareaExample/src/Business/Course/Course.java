@@ -46,5 +46,9 @@ public class Course {
         return credits;
     
 }
+
+    public Object getNumber() {
+        return number;
+    }
     
 }

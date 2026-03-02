@@ -169,11 +169,11 @@ public class ManageCoursesJPanel extends javax.swing.JPanel {
 
     private void generateCourses() {
     Course c1 = new Course("Concepts of OOD", "CSYE6200", 4);
-    CourseOffer co1 = new CourseOffer(c1);
+    CourseOffer co1 = new CourseOffer(c1, null);
     currentFaculty.AssignAsTeacher(co1);
     
     Course c2 = new Course("Application Dev", "INFO5100", 4);
-CourseOffer co2 = new CourseOffer(c2);
+CourseOffer co2 = new CourseOffer(c2, null);
 currentFaculty.AssignAsTeacher(co2);
 
     }
