@@ -200,6 +200,16 @@ public class ManageCoursesJPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblCourse;
     // End of variables declaration//GEN-END:variables
 
+    private void generateCourses() {
+    Course c1 = new Course("Concepts of OOD", "CSYE6200", 4);
+    CourseOffer co1 = new CourseOffer(c1, null);
+    currentFaculty.AssignAsTeacher(co1);
+    
+    Course c2 = new Course("Application Dev", "INFO5100", 4);
+CourseOffer co2 = new CourseOffer(c2, null);
+currentFaculty.AssignAsTeacher(co2);
+
+    }
 
     public void refreshCourseTable() {
         tableModel.setRowCount(0);

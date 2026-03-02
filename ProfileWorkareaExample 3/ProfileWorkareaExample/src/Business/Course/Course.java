@@ -55,10 +55,8 @@ public class Course {
     
 }
 
-    public void setCredits(int credits) {
-        this.credits = credits;
+    public Object getNumber() {
+        return number;
     }
-    
-    
     
 }
