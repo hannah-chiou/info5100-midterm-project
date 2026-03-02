@@ -69,41 +69,44 @@ The librarian is authorized to access only the Librarian Work Area. Librarians c
 - View student performance in current courses, including student’s ID, current course(s) taught by faculty that student is enrolled in, course credits, and grade.
 - Maintain and update personal login credentials.
 
-### Usage Instructions
-Student Role Example
--	Utilize the student credentials (User: adam, PW: ****) and login will take you to the Student Work Area where you can manage course work, register/drop classes, perform a graduation audit, and view transcript of academic history
--	Manage course work: Immediately viewable is the student’s course load/seat assignments along with their current grade to track progress. You can select a course and click the next button to access the course to upload and save files for assignments
+### Usage InstructionsStudent Role Example
+
+- Utilize the student credentials (User: adam, PW: ****) and login will take you to the Student Work Area where you can manage course work, register/drop classes, perform a graduation audit, and view transcript of academic history
+- Manage course work: Immediately viewable is the student’s course load/seat assignments along with their current grade to track progress. You can select a course and click the next button to access the course to upload and save files for assignments
 -	Registration allows the student to add and drop courses, addable by using the course name e.g. INFO5001 and removable by selecting one of the currently enrolled courses and pressing the drop button. Price of the course is viewable and enrollments and dropped courses are immediately reflected in the manage course work JPanel
 -	Graduation audit: courses that are labeled as core are in view with either the student’s grade or that it is not taken as well as a text field identifying what fraction of core courses have been taken. Elective courses are labeled as elective and are only in view if they have been taken. A counter of how many electives have been taken is updated appropriately.
 -	Transcript is viewable has all courses taken in view as well as the semester they were taken. Total credits earned is calculated and viewable based on the credit hours of a course multiplied by the grade. Similar calculation is done for GPA
 
 Admin Role Example
--	Utilize the admin credentials (Username: admin, PW:****) and login to take you to the Administrator Work Area where you can manage User Accounts, Register Persons, Manage Faculty/Students/Employees, and manage your own profile.
--	Manage User Accounts: Provides a comprehensive view of all user accounts in the system, including username, role, last accessed date, and last updated date.
--	Register Persons: Enables the creation of new user accounts by selecting a role (admin, faculty, or student) and setting login credentials.
--	Manage Faculty: Allows you to view a table listing all Faculty user accounts in the system. Three actions are available: Create Faculty, Delete Faculty, and View Faculty.
-  -	Create Faculty: Creates a new Faculty user account by setting login credentials, automatically adding the account to the system with a Faculty role.
-  -	Delete Faculty: Removes a selected Faculty user account from both the Faculty table and the system’s User Accounts. A row must be selected to perform this action; otherwise, the system will prompt you to select one.
-  -	View Faculty: Displays the details of a selected Faculty account, such as login credentials, and allows you to edit or update them. Like Delete, this action requires a row to be selected.
+
+- Utilize the admin credentials (Username: admin, PW:****) and login to take you to the Administrator Work Area where you can manage User Accounts, Register Persons, Manage Faculty/Students/Employees, and manage your own profile.
+- Manage User Accounts: Provides a comprehensive view of all user accounts in the system, including username, role, last accessed date, and last updated date.
+- Register Persons: Enables the creation of new user accounts by selecting a role (admin, faculty, or student) and setting login credentials.
+- Manage Faculty: Allows you to view a table listing all Faculty user accounts in the system. Three actions are available: Create Faculty, Delete Faculty, and View Faculty.
+    - Create Faculty: Creates a new Faculty user account by setting login credentials, automatically adding the account to the system with a Faculty role.
+    -	Delete Faculty: Removes a selected Faculty user account from both the Faculty table and the system’s User Accounts. A row must be selected to perform this action; otherwise, the system will prompt you to select one.
+    - View Faculty: Displays the details of a selected Faculty account, such as login credentials, and allows you to edit or update them. Like Delete, this action requires a row to be selected.
 -	Manage Students: Allows you to view a table listing all Student user accounts in the system. Three actions are available: Create Student, Delete Student, and View Student.
-  -	Create Student: Creates a new Student user account by setting login credentials, automatically adding the account to the system with a Student role.
-  -	Delete Student: Removes a selected Student user account from both the Student table and the system’s User Accounts. A row must be selected to perform this action; otherwise, the system will prompt you to select one.
-  -	View Student: Displays the details of a selected Student account, such as login credentials, and allows you to edit or update them. Like Delete, this action requires a row to be selected.
+    -	Create Student: Creates a new Student user account by setting login credentials, automatically adding the account to the system with a Student role.
+    -	Delete Student: Removes a selected Student user account from both the Student table and the system’s User Accounts. A row must be selected to perform this action; otherwise, the system will prompt you to select one.
+    -	View Student: Displays the details of a selected Student account, such as login credentials, and allows you to edit or update them. Like Delete, this action requires a row to be selected.
 -	Manage Employees: Allows you to view a table listing all Employee user accounts in the system. Three actions are available: Create Employee, Delete Employee, and View Employee.
-  -	Create Employee: Creates a new Employee user account by setting login credentials, automatically adding the account to the system with a Employee role.
-  -	Delete Employee: Removes a selected Employee user account from both the Employee table and the system’s User Accounts. A row must be selected to perform this action; otherwise, the system will prompt you to select one.
-  -	View Employee: Displays the details of a selected Employee account, such as login credentials, and allows you to edit or update them. Like Delete, this action requires a row to be selected
+    -	Create Employee: Creates a new Employee user account by setting login credentials, automatically adding the account to the system with a Employee role.
+    -	Delete Employee: Removes a selected Employee user account from both the Employee table and the system’s User Accounts. A row must be selected to perform this action; otherwise, the system will prompt you to select one.
+    -   View Employee: Displays the details of a selected Employee account, such as login credentials, and allows you to edit or update them. Like Delete, this action requires a row to be selected
 -	My Profile: Provides access to your personal profile, allowing you to view and update your login credentials as needed.
 
 Faculty Role Example
+
 -	First, login using provided faculty account (username: faculty, password: ****10) to view the Faculty Profile main page, which has buttons directing user to all functionalities of a faculty. 
-  -	Manage course information: Allows a user to view information about the courses they currently teach and manage them as needed.
-  -	Delete course: A user can delete any course they teach using the Delete Course button. 
-  -	Update course: A user can update course information, including the course name, the course number / code, and the credits the course is worth using the Update Course Details button. 
+-	Manage course information: Allows a user to view information about the courses they currently teach and manage them as needed.
+    -	Delete course: A user can delete any course they teach using the Delete Course button. 
+    -	Update course: A user can update course information, including the course name, the course number / code, and the credits the course is worth using the Update Course Details button. 
 -	Manage own profile: Users can view their current username and password, their role, and their average rating, as calculated by their ratings by students from past courses.
--	Update username and/or password: A user can update their username and/or password using the Update Profile button. 
+    -	Update username and/or password: A user can update their username and/or password using the Update Profile button. 
 -	View information about students enrolled in courses: A Faculty user can view general information about the students enrolled in their courses, including the total number of credits and the student’s average grade so far, their hobbies / interests, and their transcript score.
 -	View current academic performance for students enrolled in courses: A Faculty user can track how all students across all their courses are doing so far, by seeing their grades and letter grades in the courses the students are taking. 
+
 
 
 ### Testing Guide
