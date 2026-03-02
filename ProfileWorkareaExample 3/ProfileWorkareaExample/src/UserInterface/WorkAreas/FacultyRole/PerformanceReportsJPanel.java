@@ -144,7 +144,7 @@ public class PerformanceReportsJPanel extends javax.swing.JPanel {
         for (FacultyAssignment fa : currentFaculty.getFacultyassignments()) {
             CourseOffer co = fa.getCourseoffer();
             if (co != null && co.getSubjectCourse() != null) {
-                facultyCourseIds.add(co.getSubjectCourse().getNumber());
+                facultyCourseIds.add(co.getSubjectCourse().getCOurseNumber());
             }
         }
 
@@ -152,7 +152,7 @@ public class PerformanceReportsJPanel extends javax.swing.JPanel {
             for (SeatAssignment sa : sp.getCourseList()) {
                 Course c = sa.getAssociatedCourse();
                 if (c == null) continue;
-                if (!facultyCourseIds.contains(c.getNumber())) continue;
+                if (!facultyCourseIds.contains(c.getCOurseNumber())) continue;
 
                 // With current model (no grade getter), derive numeric grade from score/credits
                 float grade = 0f;
@@ -163,7 +163,7 @@ public class PerformanceReportsJPanel extends javax.swing.JPanel {
                 String letter = grade >= 3.7 ? "A" : grade >= 3.3 ? "B+" : grade >= 3.0 ? "B" : "C";
 
                 model.addRow(new Object[]{
-                    c.getNumber(),                 // Course ID
+                    c.getCOurseNumber(),                 // Course ID
                     c.getName(),                   // Course Name
                     sp.getPerson().getPersonId(),  // Student ID
                     c.getCredits(),                // Credits
@@ -195,8 +195,8 @@ public class PerformanceReportsJPanel extends javax.swing.JPanel {
 
     CourseOffer co1 = fas.get(0).getCourseoffer();
     if (co1 != null) {
-        // IMPORTANT: create seats before assigning
-        co1.generatSeats(20);   // use your exact method name from CourseOffer
+        // create seats before assigning
+        co1.generatSeats(20);   
         SeatAssignment sa11 = co1.assignEmptySeat(cl1);
         SeatAssignment sa21 = co1.assignEmptySeat(cl2);
 

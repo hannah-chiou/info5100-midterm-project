@@ -8,7 +8,6 @@ import Business.Business;
 import Business.Profiles.LibrarianProfile;
 import UserInterface.WorkAreas.LibrarianRole.LibrarianWorkAreaJPanel;
 
-
 import Business.Business;
 import Business.Profiles.EmployeeProfile;
 import Business.Profiles.Faculty.FacultyProfile;
@@ -185,7 +184,7 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
 
         if (profile instanceof EmployeeProfile) {
 
-            adminworkarea = new AdminRoleWorkAreaJPanel(business, CardSequencePanel,useraccount);
+            adminworkarea = new AdminRoleWorkAreaJPanel(business, CardSequencePanel, useraccount);
             CardSequencePanel.removeAll();
             CardSequencePanel.add("Admin", adminworkarea);
             ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
@@ -201,8 +200,7 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
             ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
         }
-        
-        
+
         if (profile instanceof LibrarianProfile) {
 
             LibrarianProfile lp = (LibrarianProfile) profile;
@@ -214,9 +212,7 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
             CardSequencePanel.add("Librarian", librarianWorkArea);
             ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
         }
-        
- /*      if (profile instanceof FacultyProfile) {
-            facultyworkarea = new FacultyWorkAreaJPanel(business, CardSequencePanel);
+
         if (profile instanceof FacultyProfile) {
             FacultyProfile fp = (FacultyProfile) profile;
 
@@ -233,7 +229,7 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
             CardSequencePanel.repaint();
 
         }
-
+    }
 
     }//GEN-LAST:event_LoginButtonActionPerformed
 
@@ -273,16 +269,28 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProfileWorkAreaMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProfileWorkAreaMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProfileWorkAreaMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProfileWorkAreaMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProfileWorkAreaMainFrame.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ProfileWorkAreaMainFrame.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ProfileWorkAreaMainFrame.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ProfileWorkAreaMainFrame.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

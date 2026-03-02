@@ -30,11 +30,11 @@ public class SeatAssignment {
         return submittedAssignments;
     }
     
-    public SeatAssignment(CourseLoad cl, Seat s){
-        seat = s;
-        courseload = cl;
-        submittedAssignments = new ArrayList<>();
-    }
+//    public SeatAssignment(CourseLoad cl, Seat s){
+//        seat = s;
+//        courseload = cl;
+//        submittedAssignments = new ArrayList<>();
+//    }
 
     public boolean getLike() {
         return like;
