@@ -11,9 +11,12 @@
 package UserInterface.WorkAreas.FacultyRole;
 
 import Business.Business;
+import Business.Course.Course;
+import Business.CourseSchedule.CourseOffer;
 import UserInterface.WorkAreas.AdminRole.ManagePersonnelWorkResp.ManagePersonsJPanel;
 import javax.swing.JPanel;
 import Business.Profiles.Faculty.FacultyProfile;
+import java.awt.CardLayout;
 
 /**
  *
@@ -35,6 +38,8 @@ public class FacultyWorkAreaJPanel extends javax.swing.JPanel {
         this.CardSequencePanel = clp;
         this.currentFaculty = faculty;
         initComponents();
+        
+        facultyAssignments();
 
     }
 
@@ -152,11 +157,10 @@ public class FacultyWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnManageCoursesIdentifyResourceAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageCoursesIdentifyResourceAssetsActionPerformed
         // TODO add your handling code here:
-        CardSequencePanel.removeAll();
 
         // pass the logged-in faculty profile
         ManageCoursesJPanel manageCoursesPanel
-                = new ManageCoursesJPanel(currentFaculty);
+                = new ManageCoursesJPanel(CardSequencePanel, currentFaculty);
 
         CardSequencePanel.add("Manage Courses", manageCoursesPanel);
         ((java.awt.CardLayout) CardSequencePanel.getLayout())
@@ -166,22 +170,31 @@ public class FacultyWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnManageStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageStudentsActionPerformed
         // TODO add your handling code here:
+        ManageStudentProfilesJPanel panel = new ManageStudentProfilesJPanel(CardSequencePanel, business, currentFaculty);
+CardSequencePanel.add("ManageStudentProfiles", panel);
+((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
 
     }//GEN-LAST:event_btnManageStudentsActionPerformed
 
     private void btnProfileIdentifyEventsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileIdentifyEventsActionPerformed
         // TODO add your handling code here:
-        CardSequencePanel.removeAll();
-        //    IdentifyEventTypes iet= new IdentifyEventTypes(businessunit, CardSequencePanel);
+         ManageFacultyProfileJPanel profilePanel =
+        new ManageFacultyProfileJPanel(CardSequencePanel, business, currentFaculty);
 
-        //    CardSequencePanel.add("IdentifyEventTypes", iet);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
-        //((java.awt.CardLayout)CardSequencePanel.getLayout()).show(CardSequencePanel, "IdentifyEventTypes");
+    CardSequencePanel.add("ManageFacultyProfile", profilePanel);
+    ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+
+
+
 }//GEN-LAST:event_btnProfileIdentifyEventsActionPerformed
 
     private void btnPerformanceReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerformanceReportsActionPerformed
         // TODO add your handling code here:
+         PerformanceReportsJPanel p = new PerformanceReportsJPanel(CardSequencePanel, business, currentFaculty);
+CardSequencePanel.add("PerformanceReportsJPanel", p);
+((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+
 
 }//GEN-LAST:event_btnPerformanceReportsActionPerformed
 
@@ -193,5 +206,22 @@ public class FacultyWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnProfile;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    private void facultyAssignments() {
+        if (currentFaculty.getFacultyassignments() != null &&
+        !currentFaculty.getFacultyassignments().isEmpty()) {
+        return;
+    }
+
+    Course c1 = new Course("Concepts of OOD", "CSYE6200", 4);
+    CourseOffer co1 = new CourseOffer(c1);
+    co1.generatSeats(20); // or generateSeats(...) based on your class
+    currentFaculty.AssignAsTeacher(co1);
+
+    Course c2 = new Course("Application Dev", "INFO5100", 4);
+    CourseOffer co2 = new CourseOffer(c2);
+    co2.generatSeats(20);
+    currentFaculty.AssignAsTeacher(co2);
+    }
 
 }

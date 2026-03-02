@@ -20,6 +20,11 @@ public class StudentProfile extends Profile {
     Person person;
     Transcript transcript;
     private UserAccount ua;
+    String hobbies = "N/A";
+
+    public void setHobbies(String hobbies) {
+        this.hobbies = hobbies;
+    }
 
     public StudentProfile(Person p) {
         super(p);
@@ -48,8 +53,9 @@ public class StudentProfile extends Profile {
     }
 
     public CourseLoad newCourseLoad(String s) {
-
-        return transcript.newCourseLoad(s);
+        CourseLoad cl = transcript.newCourseLoad(s);
+        cl.setStudentProfile(this);
+        return cl;
     }
 
     public ArrayList<SeatAssignment> getCourseList() {
@@ -61,10 +67,20 @@ public class StudentProfile extends Profile {
       public void setUserAccount(UserAccount ua) {
     this.ua = ua;
 }
+      
+     public String getHobbies() {
+        return hobbies;
+    }
+    
+    public void setHobbies(){
+        this.hobbies = hobbies;
+    }
 
     @Override
     public String getRole() {
         return "Student"; 
     }
+
+    
 
 }

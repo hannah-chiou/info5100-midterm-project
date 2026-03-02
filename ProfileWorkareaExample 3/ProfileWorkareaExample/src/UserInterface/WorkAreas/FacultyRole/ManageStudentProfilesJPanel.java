@@ -5,15 +5,42 @@
 
 package UserInterface.WorkAreas.FacultyRole;
 
+import Business.Business;
+import Business.Course.Course;
+import Business.CourseSchedule.CourseOffer;
+import Business.CourseSchedule.SeatAssignment;
+import Business.Profiles.Faculty.FacultyAssignment;
+import Business.Profiles.Faculty.FacultyProfile;
+import Business.Profiles.StudentProfile;
+import java.awt.CardLayout;
+import java.awt.Container;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author hannahchiou
  */
 public class ManageStudentProfilesJPanel extends javax.swing.JPanel {
-
+    private JPanel userProcessContainer;
+    private FacultyProfile currentFaculty;
+    private DefaultTableModel model;
+    private Business business;
+    
     /** Creates new form ManageStudentProfilesJPanel */
-    public ManageStudentProfilesJPanel() {
+    public ManageStudentProfilesJPanel(JPanel userProcessContainer, Business business, FacultyProfile faculty) {
+        this.userProcessContainer = userProcessContainer;
+        this.business = business;
+        this.currentFaculty = faculty;
+
         initComponents();
+
+        model = (DefaultTableModel) jTable1.getModel();
+        populateStudentProfilesTable();
+
     }
 
     /** This method is called from within the constructor to
@@ -27,35 +54,143 @@ public class ManageStudentProfilesJPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
+        btnBack3 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("My Faculty Profile");
 
         lblTitle.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        lblTitle.setText("Manage Student Profiles");
+        lblTitle.setText("Student Profiles");
+
+        btnBack3.setText("<< Back");
+        btnBack3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBack3ActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Student ID", "Courses in Faculty Class", "Total Credits", "Avg Grade", "Transcript Score", "Hobbies / Interests"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(211, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBack3)
+                    .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(27, 27, 27)
+                .addComponent(btnBack3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblTitle)
-                .addContainerGap(330, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(88, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBack3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack3ActionPerformed
+        // TODO add your handling code here:
+         Container parent = this.getParent(); // fallback if container wasn't passed
+    JPanel container = (userProcessContainer != null) ? userProcessContainer : (JPanel) parent;
+
+    container.remove(this);
+    CardLayout layout = (CardLayout) container.getLayout();
+    layout.previous(container);
+    }//GEN-LAST:event_btnBack3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnBack1;
+    private javax.swing.JButton btnBack2;
+    private javax.swing.JButton btnBack3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblTitle;
     // End of variables declaration//GEN-END:variables
+
+    private void populateStudentProfilesTable() {
+        model.setRowCount(0);
+
+        if (currentFaculty == null) return;
+
+        // collect course IDs taught by this faculty
+        Set<String> facultyCourseIds = new HashSet<>();
+        for (FacultyAssignment fa : currentFaculty.getFacultyassignments()) {
+            CourseOffer co = fa.getCourseoffer();
+            if (co != null && co.getSubjectCourse() != null) {
+                facultyCourseIds.add(co.getSubjectCourse().getNumber());
+            }
+        }
+
+        // re-use students generated in PerformanceReportsJPanel
+        PerformanceReportsJPanel reportsPanel =
+        new PerformanceReportsJPanel(userProcessContainer, business, currentFaculty);
+
+ArrayList<StudentProfile> students = reportsPanel.getDemoStudents();
+
+        for (StudentProfile sp : students) {
+            int coursesInFacultyClass = 0;
+            int totalCredits = 0;
+            float totalGrade = 0f;
+
+            for (SeatAssignment sa : sp.getCourseList()) {
+                Course c = sa.getAssociatedCourse();
+                if (c == null) continue;
+                if (!facultyCourseIds.contains(c.getNumber())) continue;
+
+                coursesInFacultyClass++;
+                totalCredits += c.getCredits();
+                totalGrade += sa.getGrade(); // requires SeatAssignment.getGrade()
+            }
+
+            if (coursesInFacultyClass == 0) continue;
+
+            float avgGrade = totalGrade / coursesInFacultyClass;
+            float transcriptScore = sp.getTranscript().getStudentTotalScore();
+
+            // requires StudentProfile.getHobbies() and getInterests()
+            String hobbiesInterests = sp.getHobbies();
+
+            model.addRow(new Object[]{
+                sp.getPerson().getPersonId(),
+                coursesInFacultyClass,
+                totalCredits,
+                String.format("%.2f", avgGrade),
+                String.format("%.2f", transcriptScore),
+                hobbiesInterests
+            });
+        }
+    }
 
 }
