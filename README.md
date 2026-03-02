@@ -150,6 +150,9 @@ Password: ****
 
 ### Future Enhancements
 **Student Use Case**
+- When registering for courses, be able to select a semester and be presented with a table containing all course offerings for that semester
+- For the graduation audit, have all requirements side by side with what has been completed (units, core courses, elective courses) or have a list of required courses that are checked off upon completion
+- For manage coursework, create a full assignments class that the assigned faculty has access to, allowing them to create assignments and view what has been submitted by students as well as giving each assignment an individual grade
 
 **Librarian Use Case**
 -	When searching using the Book ID, details about the book and information about who has borrowed it can be made visible.
