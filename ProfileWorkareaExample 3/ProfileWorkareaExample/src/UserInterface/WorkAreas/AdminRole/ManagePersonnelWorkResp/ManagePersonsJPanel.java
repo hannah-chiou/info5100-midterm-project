@@ -139,6 +139,7 @@ public class ManagePersonsJPanel extends javax.swing.JPanel {
             business.getUserAccountDirectory().getUserAccountList().add(ua);
 
             ep.setUserAccount(ua);
+            JOptionPane.showMessageDialog(this, "Admin account updated successfully!");
 
         } else if (selectedRole.equals("Faculty")) {
             FacultyProfile fp = business.getFacultydirectory().newFacultyProfile(person);
@@ -147,6 +148,7 @@ public class ManagePersonsJPanel extends javax.swing.JPanel {
             business.getUserAccountDirectory().getUserAccountList().add(ua);
 
             fp.setUserAccount(ua);
+            JOptionPane.showMessageDialog(this, "Faculty account updated successfully!");
 
         } else if (selectedRole.equals("Student")) {
             
@@ -157,6 +159,7 @@ public class ManagePersonsJPanel extends javax.swing.JPanel {
             business.getUserAccountDirectory().getUserAccountList().add(ua);
 
             sp.setUserAccount(ua);
+            JOptionPane.showMessageDialog(this, "Student account updated successfully!");
         }
         
          if (managePanel != null) {
