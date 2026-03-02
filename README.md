@@ -110,21 +110,21 @@ The librarian is authorized to access only the Librarian Work Area. Librarians c
 -	View current academic performance for students enrolled in courses: A Faculty user can track how all students across all their courses are doing so far, by seeing their grades and letter grades in the courses the students are taking. 
 
 ### Testing Guide
-**Admin login**
-Username: admin
-Password: ****
+**Admin login**      
+Username: admin      
+Password: ****     
 
-**Faculty login**
-Username: faculty
-Password: ****10
+**Faculty login**     
+Username: faculty     
+Password: ****10    
 
-**Librarian login**
-Username: librarian
-Password:1234
+**Librarian login**     
+Username: librarian     
+Password: 1234    
 
-**Student login**
-Username: adam
-Password: ****
+**Student login**    
+Username: adam     
+Password: ****     
 
 
 ### Challenges & Solutions
