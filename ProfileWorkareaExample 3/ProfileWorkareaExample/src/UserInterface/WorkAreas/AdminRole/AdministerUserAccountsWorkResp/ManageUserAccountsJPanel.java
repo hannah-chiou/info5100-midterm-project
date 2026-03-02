@@ -102,7 +102,7 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
         jLabel1.setBounds(30, 90, 190, 17);
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel2.setText("Manage User Accounts");
+        jLabel2.setText("View User Accounts");
         add(jLabel2);
         jLabel2.setBounds(21, 20, 550, 28);
 
