@@ -2,10 +2,11 @@
 ## INFO5100 Midterm Project – Group 5
 
 ### Team Information
-- Kenneth Garcia (NUID 003166112):  Student use case
-- Merin Godly: Admin use case, creating presentation video
-- Lajona Rajan(NUID:  003158194):  Librarian use case
-- Hannah Chiou (NUID:  002124283): Faculty use case, creating README documentation 
+- Merin Godly (NUID: 003186986): Developing University admin role, creating presentation video
+- Kenneth Garcia (NUID: 003166112): Developing student role
+- Lajona Rajan: (NUID: 003158194): Developing librarian role
+- Hannah Chiou (NUID:  002124283): Developing faculty role, creating README documentation
+
 
 ### Project Overview
 This project implements a **Digital University System** integrated with a **role-based access control layer** to support secure authentication and authorization for different university users. The objective is to combine the provided Digital University model with an Access Control Layer to ensure that **users can only access features appropriate to their assigned roles**.
@@ -27,8 +28,19 @@ List the prerequisites required to run the project (e.g., Java version, IDE, lib
 Provide step-by-step setup instructions, including how to clone the repository and run the project
 
 ### Authentication & Access Control
-Explain the authentication process (e.g., login, logout)
-Describe the authorization rules for different user roles (Admin, Faculty, Student,Librarian)
+Java version: Java 19
+IDE: Apache Netbeans 16
+Libraries: Java Swing, Java standard library (java.util, java.math, java.awt, java.io.File)
+
+**Setup Instructions**
+1.	If not already downloaded, install Apache Netbeans 16 using the instructions given by your operating system. 
+2.	Open Netbeans and navigate from Team > Git > Clone.
+3.	In the Repository URL field, copy and paste the following GitHub link: https://github.com/hannah-chiou/info5100-midterm-project.git Enter your GitHub username and password when prompted and click Next. 
+4.	At the “Remote Branches” page, click main as the branch you would like to download. Click Next. 
+5.	In the Parent Directory field specify where the project should be stored on your local directory and click Finish. Note that the Clone Name field will automatically fill with the repository name. This is the local folder name. The Remote Name is typically origin, which is the recommended default alias for the original repository. NetBeans will clone the repository and open the project.
+  1. If the project does not open automatically, navigate to File → Open Project, locate the cloned repository, and open it.
+6.	Right-click the project in the Projects panel and select Clean and Build to ensure all dependencies are resolved. 
+7.	To run the project, right-click the project again and select Run, or press the green Play button located on the top of the Netbeans IDE. 
 
 ### Features Implemented
 Detail the functionalities implemented for each role
