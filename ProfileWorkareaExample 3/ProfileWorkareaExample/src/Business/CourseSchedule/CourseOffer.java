@@ -89,5 +89,9 @@ public class CourseOffer {
     public int getCreditHours(){
         return course.getCredits();
     }
+    
+    public ArrayList<Seat> getSeatList(){
+        return seatlist;
+    }
 
 }

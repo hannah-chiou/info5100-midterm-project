@@ -5,6 +5,7 @@
  */
 package Business.CourseSchedule;
 
+import Business.Profiles.StudentProfile;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 public class CourseLoad {
     String semester;
     ArrayList<SeatAssignment> seatassignments;
+    private StudentProfile studentProfile;
     
     public CourseLoad(String s){
         seatassignments = new ArrayList();
@@ -45,5 +47,13 @@ public class CourseLoad {
         public ArrayList<SeatAssignment> getSeatAssignments(){
             return seatassignments;
         }
+        
+        public void setStudentProfile(StudentProfile sp) {
+    this.studentProfile = sp;
+}
+
+public StudentProfile getStudentProfile() {
+    return studentProfile;
+}
             
 }
