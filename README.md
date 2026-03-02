@@ -1,5 +1,5 @@
 # Role-Based Digital University Platform
-## INFO5100 Midterm Project – Group 5
+## INFO5100 Midterm Project – Group 5 | March 1, 2026
 
 ### Table of Contents
 + [Team Information](#team-information)
