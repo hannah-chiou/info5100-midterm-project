@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class SeatAssignment {
 
-    public SeatAssignment(CourseLoad cl, Seat s) {
+    
     public float grade; //(Letter grade mappings: A=4.0, A-=3.7, B+=3.3, B=3.0, )
     Seat seat;
     boolean like; //true means like and false means not like
@@ -30,11 +30,10 @@ public class SeatAssignment {
         return submittedAssignments;
     }
     
-//    public SeatAssignment(CourseLoad cl, Seat s){
-//        seat = s;
-//        courseload = cl;
-//        submittedAssignments = new ArrayList<>();
-//    }
+    public SeatAssignment(CourseLoad cl, Seat s){
+        seat = s;
+        courseload = cl;
+        submittedAssignments = new ArrayList<>();    }
 
     public boolean getLike() {
         return like;

@@ -42,6 +42,11 @@ public class Course {
     public void setNumber(String number) {
         this.number = number;
     }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
+    }
+    
     
     
 
@@ -55,8 +60,5 @@ public class Course {
     
 }
 
-    public Object getNumber() {
-        return number;
-    }
     
 }
