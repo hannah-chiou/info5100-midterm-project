@@ -1,6 +1,19 @@
 # Role-Based Digital University Platform
 ## INFO5100 Midterm Project – Group 5
 
+- [Role-Based Digital University Platform](#role-based-digital-university-platform)
+  * [INFO5100 Midterm Project – Group 5](#info5100-midterm-project---group-5)
+    + [Team Information](#team-information)
+    + [Project Overview](#project-overview)
+    + [Installation & Setup Instructions](#installation---setup-instructions)
+    + [Authentication & Access Control](#authentication---access-control)
+    + [Features Implemented](#features-implemented)
+    + [Usage Instructions](#usage-instructions)
+    + [Testing Guide](#testing-guide)
+    + [Challenges & Solutions](#challenges---solutions)
+    + [Future Enhancements](#future-enhancements)
+    + [Contribution Breakdown](#contribution-breakdown)
+
 ### Team Information
 - Merin Godly (NUID: 003186986): Developing University admin role, creating presentation video
 - Kenneth Garcia (NUID: 003166112): Developing student role
