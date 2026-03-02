@@ -1,6 +1,7 @@
 # Role-Based Digital University Platform
 ## INFO5100 Midterm Project – Group 5
 
+### Table of Contents
 + [Team Information](#team-information)
 + [Project Overview](#project-overview)
 + [Installation & Setup Instructions](#installation---setup-instructions)
